@@ -46,7 +46,7 @@ let config = MpesaConfig::new().with_access_token();
 /// Create a client to make requests with default config or you can provide your own check the docs for more info
 let client = Client::with_config(config);
 
-/// all fields must be provided
+/// all fields must be provided as strings
 let request = ExpressPushRequestArgs::default()
     .PartyA()
     .PartyB()
@@ -62,7 +62,9 @@ let request = ExpressPushRequestArgs::default()
     .build()
     .unwrap();
 
+///Executes the request and deserializes the response
 let response = client
+    //the appropriate method is required for the respective api you are trying to access.
     .stkpush()
     .create(request)
     .await
@@ -71,7 +73,7 @@ let response = client
 println!("{:?}", response);
 ```
 
-# Methods to call other requests
+# Methods to prepare requests to the mpesa api
 To access different request use the following methods to access the apis mpesa provides.
 1. Account Balance
    ```
@@ -112,3 +114,4 @@ To access different request use the following methods to access the apis mpesa p
 10. Tax Remit
     ```
     TaxRemitRequestArgs::Default()
+    ```

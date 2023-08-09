@@ -11,14 +11,14 @@ use crate::error::MpesaError;
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct AccountBalanceRequest {
-    pub CommandID: Option<String>,
-    pub PartyA: Option<i64>,
-    pub IdentifierType: Option<i64>,
-    pub Remarks: Option<String>,
-    pub Initiator: Option<String>,
-    pub SecurityCredential: Option<String>,
-    pub QueueTimeoutURL: Option<String>,
-    pub ResultURL: Option<String>
+    pub CommandID: String,
+    pub PartyA: String,
+    pub IdentifierType: String,
+    pub Remarks: String,
+    pub Initiator: String,
+    pub SecurityCredential: String,
+    pub QueueTimeoutURL: String,
+    pub ResultURL: String
 }
 
 #[allow(non_snake_case)]
@@ -38,15 +38,15 @@ pub struct AccountBalanceResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct ExpressPushRequest {
-    pub BusinessShortCode: i32,
+    pub BusinessShortCode: String,
     pub Password: String,
     pub Timestamp: String,
     pub TransactionType: String,
-    pub Amount: i64,
+    pub Amount: String,
     pub PartyA: String,
-    pub PartyB: i32,
+    pub PartyB: String,
     pub PhoneNumber: String,
-    pub CallbackURL: String,
+    pub CallBackURL: String,
     pub AccountReference: String,
     pub TransactionDesc: String
 }
@@ -56,7 +56,7 @@ pub struct ExpressPushRequest {
 pub struct ExpressPushResponse {
     MerchantRequestID: String,
     CheckoutRequestID: String,
-    ResponseCode: i16,
+    ResponseCode: String,
     ResponseDescription: String,
     CustomerMessage: String
 }
@@ -69,16 +69,16 @@ pub struct ExpressPushResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct B2CRequest {
-    pub InitiatorName: Option<String>,
-    pub SecurityCredential: Option<String>,
-    pub CommandID: Option<String>,
-    pub Amount: Option<i64>,
-    pub PartyA: Option<i64>,
-    pub PartyB: Option<i64>,
-    pub Remarks: Option<String>,
-    pub QueueTimeOutURL: Option<String>,
-    pub ResultURL: Option<String>,
-    pub Occassion: Option<String>
+    pub InitiatorName: String,
+    pub SecurityCredential: String,
+    pub CommandID: String,
+    pub Amount: String,
+    pub PartyA: String,
+    pub PartyB: String,
+    pub Remarks: String,
+    pub QueueTimeOutURL: String,
+    pub ResultURL: String,
+    pub Occassion: String
 }
 
 #[allow(non_snake_case)]
@@ -97,12 +97,12 @@ pub struct B2CResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct ExpressQueryRequest {
-    pub BusinessShortCode: Option<String>,
+    pub BusinessShortCode: String,
     /// Base64 encoding
-    pub Password: Option<String>,
+    pub Password: String,
     /// Timesatmp of the transaction whose status is being checked 
-    pub Timestamp: Option<String>,
-    pub CheckoutRequestID: Option<String>
+    pub Timestamp: String,
+    pub CheckoutRequestID: String
 }
 
 #[allow(non_snake_case)]
@@ -124,12 +124,12 @@ pub struct ExpressQueryResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct QRRequest {
-    pub MerchantName: Option<String>,
-    pub RefNo: Option<String>,
+    pub MerchantName: String,
+    pub RefNo: String,
     pub Amount: String,
-    pub TrxCode: Option<String>,
-    pub CPI: Option<String>,
-    pub Size: Option<String>
+    pub TrxCode: String,
+    pub CPI: String,
+    pub Size: String
 }
 
 #[allow(non_snake_case)]
@@ -150,19 +150,19 @@ pub struct QRResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct ReversalRequest {
-    pub Initiator: Option<String>,
-    pub SecurityCredential: Option<String>,
-    pub CommandID: Option<String>,
+    pub Initiator: String,
+    pub SecurityCredential: String,
+    pub CommandID: String,
     /// Original transaction ID of the transaction being reversed
-    pub TransactionID: Option<String>,
-    pub Amount: Option<i64>,
+    pub TransactionID: String,
+    pub Amount: String,
     /// The organization that received the funds
-    pub ReceiverParty: Option<i64>,
-    pub ReceiverIdentifierType: Option<String>,
-    pub ResultURL: Option<String>,
-    pub QueueTimeoutURL: Option<String>,
-    pub Remarks: Option<String>,
-    pub Occasion: Option<String>
+    pub ReceiverParty: String,
+    pub ReceiverIdentifierType: String,
+    pub ResultURL: String,
+    pub QueueTimeoutURL: String,
+    pub Remarks: String,
+    pub Occasion: String
 }
 
 #[allow(non_snake_case)]
@@ -182,18 +182,18 @@ pub struct ReversalResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct TaxRemitRequest {
-    pub Initiator: Option<String>,
-    pub SecurityCredential: Option<String>,
-    pub CommandID: Option<String>,
-    pub SenderIdentifierType: Option<i64>,
-    pub ReceiverIdentifierType: Option<i64>,
-    pub Amount: Option<i64>,
-    pub PartyA: Option<i64>,
-    pub PartyB: Option<i64>,
-    pub AccountReference: Option<String>,
-    pub Remarks: Option<String>,
-    pub QueueTimeoutURL: Option<String>,
-    pub ResultURL: Option<String>
+    pub Initiator: String,
+    pub SecurityCredential: String,
+    pub CommandID: String,
+    pub SenderIdentifierType: String,
+    pub ReceiverIdentifierType: String,
+    pub Amount: String,
+    pub PartyA: String,
+    pub PartyB: String,
+    pub AccountReference: String,
+    pub Remarks: String,
+    pub QueueTimeoutURL: String,
+    pub ResultURL: String
 }
 
 #[allow(non_snake_case)]
@@ -213,17 +213,17 @@ pub struct TaxRemitResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct TransactionStatusRequest {
-    pub Initiator: Option<String>,
-    pub SecurityCredential: Option<String>,
-    pub CommandID: Option<String>,
-    pub TranscationID: Option<String>,
-    pub OriginatorConversationID: Option<String>,
-    pub PartyA: Option<i64>,
-    pub IdentifierType: Option<u16>,
-    pub ResultURL: Option<String>,
-    pub QueueTimeoutURL: Option<String>,
-    pub Remarks: Option<String>,
-    pub Occasion: Option<String>
+    pub Initiator: String,
+    pub SecurityCredential: String,
+    pub CommandID: String,
+    pub TranscationID: String,
+    pub OriginatorConversationID: String,
+    pub PartyA: i64,
+    pub IdentifierType: u16,
+    pub ResultURL: String,
+    pub QueueTimeoutURL: String,
+    pub Remarks: String,
+    pub Occasion: String
 }
 
 #[allow(non_snake_case)]
@@ -243,19 +243,19 @@ pub struct TransactionStatusResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct BusinessBuyGoodsRequest {
-    pub Initiator: Option<String>,
-    pub SecurityCredential: Option<String>,
-    pub CommandID: Option<String>,
-    pub SenderIdentifierType: Option<String>,
-    pub ReceiverIdentifierType: Option<String>,
-    pub Amount: Option<String>,
-    pub PartyA: Option<i64>,
-    pub PartyB: Option<i64>,
-    pub AccountReference: Option<String>,
-    pub Requester: Option<i64>,
-    pub Remarks: Option<String>,
-    pub QueueTimeoutURL: Option<String>,
-    pub ResultURL: Option<String>,
+    pub Initiator: String,
+    pub SecurityCredential: String,
+    pub CommandID: String,
+    pub SenderIdentifierType: String,
+    pub ReceiverIdentifierType: String,
+    pub Amount: String,
+    pub PartyA: String,
+    pub PartyB: String,
+    pub AccountReference: String,
+    pub Requester: String,
+    pub Remarks: String,
+    pub QueueTimeoutURL: String,
+    pub ResultURL: String,
 }
 
 #[allow(non_snake_case)]
@@ -275,19 +275,19 @@ pub struct BusinessBuyGoodsResponse {
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct BusinessPayBillRequest {
-    pub Initiator: Option<String>,
-    pub SecurityCredential: Option<String>,
-    pub CommandID: Option<String>,
-    pub SenderIdentifierType: Option<String>,
-    pub ReceiverIdentifierType: Option<String>,
-    pub Amount: Option<String>,
-    pub PartyA: Option<i64>,
-    pub PartyB: Option<i64>,
-    pub AccountReference: Option<String>,
-    pub Requester: Option<i64>,
-    pub Remarks: Option<String>,
-    pub QueueTimeoutURL: Option<String>,
-    pub ResultURL: Option<String>,
+    pub Initiator: String,
+    pub SecurityCredential: String,
+    pub CommandID: String,
+    pub SenderIdentifierType: String,
+    pub ReceiverIdentifierType: String,
+    pub Amount: String,
+    pub PartyA: String,
+    pub PartyB: String,
+    pub AccountReference: String,
+    pub Requester: String,
+    pub Remarks: String,
+    pub QueueTimeoutURL: String,
+    pub ResultURL: String,
 }
 
 #[allow(non_snake_case)]

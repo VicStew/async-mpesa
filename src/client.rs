@@ -6,7 +6,7 @@ use crate::{
     accountbalance::AccountBalance, 
     b2c::B2C, 
     expressquery::ExpressQuery, 
-    qr::QR, reversal::Reversal, stkpush::STKPush, tax::Tax, transactionstatus::TransactionStatus,
+    qr::QR, reversal::Reversal, stkpush::STKPush, tax::Tax, transactionstatus::TransactionStatus, bbuygoods::Bbuygoods,
 };
 
 #[derive(Debug, Clone)]
@@ -54,6 +54,14 @@ impl<C: Config> Client<C> {
         B2C::new(self)
     }
 
+    pub fn bbuygoods(&self) -> Bbuygoods<C> {
+        Bbuygoods::new(self)
+    }
+
+    pub fn bpaybill(&self) -> Bbuygoods<C> {
+        Bbuygoods::new(self)
+    }
+
     pub fn expressquery(&self) -> ExpressQuery<C> {
         ExpressQuery::new(self)
     }
@@ -83,14 +91,12 @@ impl<C: Config> Client<C> {
         I: Serialize + std::fmt::Debug,
         O: DeserializeOwned,
     {
-        println!("{:#?}", request);
         let request = self
             .http_client
             .post(self.config.url(path))
             .headers(self.config.headers())
             .json(&request)
             .build()?;
-        println!("{:#?}", request);
         self.execute(request).await
     }
 
@@ -111,8 +117,6 @@ impl<C: Config> Client<C> {
             .bytes()
             .await
             .map_err(MpesaError::Reqwest)?;
-
-            println!("{:?}", bytes);
             if !status.is_success() {
                 let wrapped_error: ApiError = serde_json::from_slice(bytes.as_ref())
                     .map_err(|e| map_deserialization_error(e, bytes.as_ref()))?;
