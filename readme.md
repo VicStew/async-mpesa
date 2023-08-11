@@ -1,7 +1,7 @@
-**This is an async rust library for the mpesa api complete with it's own error types.**
+This is an async rust library for the mpesa api complete with it's own error types.
 
 # To get an access token
-```
+``` Rust
 use serde::{Serialize, Deserialize};
 use base64::{Engine as _, engine::general_purpose};
 
@@ -39,7 +39,7 @@ async fn main() {
 # Making a request
 An Example of a Mpesa Express (STK Push) request:
 
-```
+```Rust
 ///By default if no access token is provided it will look in your environment variables.
 let config = MpesaConfig::new().with_access_token();
 
@@ -76,42 +76,42 @@ println!("{:?}", response);
 # Methods to prepare requests to the mpesa api
 To access different request use the following methods to access the apis mpesa provides.
 1. Account Balance
-   ```
+   ```Rust
    AccountBalanceRequestArgs::Default()
    ```
 2. B2C
-   ```
+   ```Rust
    B2CRequestArgs::Default()
    ```
 3. Business Buy Goods
-   ```
+   ```Rust
    BusinessBuyGoodsRequestArgs::Default()
    ```
 4. Business PayBill
-   ```
+   ```Rust
    BusinessPayBillRequestArgs::Default()
    ```
 5. Mpesa Express Query
-   ```
+   ```Rust
    ExpressQueryRequestArgs::Default()
    ```
 6. QR code
-   ```
+   ```Rust
    QRRequestArgs::Default()
    ```
 7. Reverse Transaction
-   ```
+   ```Rust
    ReversalRequestArgs::Default()
    ```
 8. Mpesa Express (STK Push)
-   ```
+   ```Rust
    ExpressPushRequestArgs::Default()
    ```
 9. Transaction Status
-    ```
+    ```Rust
     TransactionStatusRequestArgs::Default()
     ```
 10. Tax Remit
-    ```
+    ```Rust
     TaxRemitRequestArgs::Default()
     ```

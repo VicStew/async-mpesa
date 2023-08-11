@@ -5,6 +5,7 @@ use crate::{
     types::{BusinessPayBillRequest, BusinessPayBillResponse}
 };
 
+/// Client to call the business paybill API
 pub struct Bpaybill<'m, C: Config> {
     client: &'m Client<C>,
 }

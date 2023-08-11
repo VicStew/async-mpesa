@@ -44,8 +44,6 @@ impl<C: Config> Client<C> {
 
 
     // API groups
-
-    /// To call [AccountBalacnce] group related APIs using this client.
     pub fn accountbalance(&self) -> AccountBalance<C> {
         AccountBalance::new(self)
     }

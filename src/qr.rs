@@ -5,7 +5,7 @@ use crate::{
     types::{QRRequest, QRResponse}
 };
 
-/// Creates a request amd returns a response
+/// Client to call the qr code generator API
 pub struct QR<'m, C: Config> {
     client: &'m Client<C>,
 }

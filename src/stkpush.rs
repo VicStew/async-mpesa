@@ -5,7 +5,7 @@ use crate::{
     types::{ExpressPushRequest, ExpressPushResponse}
 };
 
-/// Creates a request amd returns a response
+/// Client to call the stkpush API
 pub struct STKPush<'m, C: Config> {
     client: &'m Client<C>,
 }

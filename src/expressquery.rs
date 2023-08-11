@@ -5,7 +5,7 @@ use crate::{
     types::{ExpressQueryRequest, ExpressQueryResponse}
 };
 
-/// Creates a request amd returns a response
+/// Client to call the stkpush transaction status query API
 pub struct ExpressQuery<'m, C: Config> {
     client: &'m Client<C>,
 }

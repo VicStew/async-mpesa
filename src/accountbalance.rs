@@ -5,7 +5,7 @@ use crate::{
     types::{AccountBalanceRequest, AccountBalanceResponse},
 };
 
-/// Will call the AccountBalance API
+/// Client to call the account balance API.
 pub struct AccountBalance<'m, C: Config> {
     client: &'m Client<C>
 }

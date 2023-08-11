@@ -5,7 +5,7 @@ use crate::{
     types::{B2CRequest, B2CResponse}
 };
 
-/// Creates a request amd returns a response
+/// Client to call the b2c API
 pub struct B2C<'m, C: Config> {
     client: &'m Client<C>,
 }

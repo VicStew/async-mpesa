@@ -5,7 +5,7 @@ use crate::{
     types::{TransactionStatusRequest, TransactionStatusResponse}
 };
 
-/// Creates a request amd returns a response
+/// Client to call the transcation status API
 pub struct TransactionStatus<'m, C: Config> {
     client: &'m Client<C>,
 }

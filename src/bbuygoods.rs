@@ -5,6 +5,7 @@ use crate::{
     types::{BusinessBuyGoodsRequest, BusinessBuyGoodsResponse}
 };
 
+/// Client to call the business buy goods API
 pub struct Bbuygoods<'m, C: Config> {
     client: &'m Client<C>,
 }

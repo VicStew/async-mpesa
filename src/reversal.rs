@@ -5,7 +5,7 @@ use crate::{
     types::{ReversalRequest, ReversalResponse}
 };
 
-/// Creates a request amd returns a response
+/// Client to call the transaction reversal API
 pub struct Reversal<'m, C: Config> {
     client: &'m Client<C>,
 }

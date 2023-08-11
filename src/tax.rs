@@ -5,7 +5,7 @@ use crate::{
     types::{TaxRemitRequest, TaxRemitResponse}
 };
 
-/// Creates a request amd returns a response
+/// Client to call the business tax remittance API
 pub struct Tax<'m, C: Config> {
     client: &'m Client<C>,
 }
