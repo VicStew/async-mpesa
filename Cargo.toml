@@ -6,6 +6,9 @@ readme = "readme.md"
 license = "MIT OR Apache-2.0"
 authors = ["Stewart <victorstew5@gmail.com>"]
 description = "A rust library for accessing mpesa apis"
+keywords = ["mpesa"]
+categories = ["finance"]
+repository = "https://github.com/VicStew/async-mpesa"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
