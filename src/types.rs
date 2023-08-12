@@ -4,10 +4,10 @@ use serde::{Deserialize, Serialize};
 use crate::error::MpesaError;
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "AccountBalanceRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct AccountBalanceRequest {
@@ -31,10 +31,10 @@ pub struct AccountBalanceResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "ExpressPushRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct ExpressPushRequest {
@@ -62,10 +62,10 @@ pub struct ExpressPushResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "B2CRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct B2CRequest {
@@ -90,10 +90,10 @@ pub struct B2CResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "ExpressQueryRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct ExpressQueryRequest {
@@ -117,10 +117,10 @@ pub struct ExpressQueryResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "QRRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct QRRequest {
@@ -143,10 +143,10 @@ pub struct QRResponse {
 
 /// Reverses a C2B M-Pesa Transaction
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "ReversalRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct ReversalRequest {
@@ -175,10 +175,10 @@ pub struct ReversalResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "TaxRemitRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct TaxRemitRequest {
@@ -206,10 +206,10 @@ pub struct TaxRemitResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "TransactionStatusRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct TransactionStatusRequest {
@@ -236,10 +236,10 @@ pub struct TransactionStatusResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "BusinessBuyGoodsRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct BusinessBuyGoodsRequest {
@@ -268,10 +268,10 @@ pub struct BusinessBuyGoodsResponse {
 }
 
 #[allow(non_snake_case)]
-#[derive(Debug, Default, Builder, Serialize, Clone)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "BusinessPayBillRequestArgs")]
 #[builder(pattern = "mutable")]
-#[builder(setter(into, strip_option), default)]
+#[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
 pub struct BusinessPayBillRequest {
@@ -297,4 +297,38 @@ pub struct BusinessPayBillResponse {
     ConversationID: String,
     ResponseCode: u16,
     ResponseDescription: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "SingleInvoicingRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct SingleInvoicingRequest {
+    externalReference: String,
+    billedFullName: String,
+    billedPhoneNumber: String,
+    billedPeriod: String,
+    invoiceName: String,
+    dueDate: String,
+    accountReference: String,
+    amount: String,
+    invoiceItems: Vec<InvoiceItems>
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct SingleInvoicingResponse {
+    Status_Message: String,
+    resmg: String,
+    rescode: i32,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Serialize, Clone)]
+pub struct InvoiceItems {
+    itemName: String,
+    amount: String,
 }

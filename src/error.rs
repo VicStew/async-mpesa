@@ -1,3 +1,4 @@
+use derive_builder::UninitializedFieldError;
 use serde::Deserialize;
 
 #[derive(Debug, thiserror::Error)]
@@ -26,4 +27,10 @@ pub(crate) fn map_deserialization_error(e: serde_json::Error, bytes: &[u8]) -> M
         String::from_utf8_lossy(bytes.as_ref())
     );
     MpesaError::JsonDeserialize(e)
+}
+
+impl From<UninitializedFieldError> for MpesaError {
+    fn from(value: UninitializedFieldError) -> Self {
+        MpesaError::InvalidArgument(value.to_string())
+    }
 }

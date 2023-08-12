@@ -1,14 +1,14 @@
-This is an async rust library for the mpesa api complete with it's own error types.
+This is an async rust library for accessing the mpesa apis.
 
 # To get an access token
-``` Rust
+``` rust
 use serde::{Serialize, Deserialize};
 use base64::{Engine as _, engine::general_purpose};
 
 #[derive(Debug. Serialize, Deserialize)]
 struct Response {
     access_token: String,
-    expires_in: String,
+    expires_in: i32,
 }
 
 #[tokio::main]
@@ -39,8 +39,7 @@ async fn main() {
 # Making a request
 An Example of a Mpesa Express (STK Push) request:
 
-```Rust
-///By default if no access token is provided it will look in your environment variables.
+```rust
 let config = MpesaConfig::new().with_access_token();
 
 /// Create a client to make requests with default config or you can provide your own check the docs for more info
@@ -48,23 +47,22 @@ let client = Client::with_config(config);
 
 /// all fields must be provided as strings
 let request = ExpressPushRequestArgs::default()
-    .PartyA()
-    .PartyB()
-    .Amount()
+    .PartyA("")
+    .PartyB("")
+    .Amount("")
     .Password(shortcode, passkey, timestamp)
-    .AccountReference()
-    .TransactionType()
-    .BusinessShortCode()
-    .CallbackURL()
-    .TransactionDesc()
-    .Timestamp()
-    .PhoneNumber()
+    .AccountReference("")
+    .TransactionType("")
+    .BusinessShortCode("")
+    .CallbackURL("")
+    .TransactionDesc("")
+    .Timestamp("")
+    .PhoneNumber("")
     .build()
     .unwrap();
 
-///Executes the request and deserializes the response
 let response = client
-    //the appropriate method is required for the respective api you are trying to access.
+    ///the appropriate method is required for the respective api you are trying to access.
     .stkpush()
     .create(request)
     .await
@@ -73,45 +71,47 @@ let response = client
 println!("{:?}", response);
 ```
 
-# Methods to prepare requests to the mpesa api
+# Methods to make requests to the mpesa api
 To access different request use the following methods to access the apis mpesa provides.
 1. Account Balance
-   ```Rust
+   ```rust
    AccountBalanceRequestArgs::Default()
    ```
 2. B2C
-   ```Rust
+   ```rust
    B2CRequestArgs::Default()
    ```
 3. Business Buy Goods
-   ```Rust
+   ```rust
    BusinessBuyGoodsRequestArgs::Default()
    ```
 4. Business PayBill
-   ```Rust
+   ```rust
    BusinessPayBillRequestArgs::Default()
    ```
 5. Mpesa Express Query
-   ```Rust
+   ```rust
    ExpressQueryRequestArgs::Default()
    ```
 6. QR code
-   ```Rust
+   ```rust
    QRRequestArgs::Default()
    ```
 7. Reverse Transaction
-   ```Rust
+   ```rust
    ReversalRequestArgs::Default()
    ```
 8. Mpesa Express (STK Push)
-   ```Rust
+   ```rust
    ExpressPushRequestArgs::Default()
    ```
 9. Transaction Status
-    ```Rust
+    ```rust
     TransactionStatusRequestArgs::Default()
     ```
 10. Tax Remit
-    ```Rust
+    ```rust
     TaxRemitRequestArgs::Default()
     ```
+
+This library still works for those targeting the `wasm` architecture.

@@ -6,7 +6,7 @@ use crate::{
     accountbalance::AccountBalance, 
     b2c::B2C, 
     expressquery::ExpressQuery, 
-    qr::QR, reversal::Reversal, stkpush::STKPush, tax::Tax, transactionstatus::TransactionStatus, bbuygoods::Bbuygoods,
+    qr::QR, reversal::Reversal, stkpush::STKPush, tax::Tax, transactionstatus::TransactionStatus, bbuygoods::Bbuygoods, singleinvoice::SingleInvoice,
 };
 
 #[derive(Debug, Clone)]
@@ -72,6 +72,10 @@ impl<C: Config> Client<C> {
         Reversal::new(self)
     }
 
+    pub fn singleinvoice(&self) -> SingleInvoice<C> {
+        SingleInvoice::new(self)
+    }
+
     pub fn stkpush(&self) -> STKPush<C> {
         STKPush::new(self)
     }
@@ -84,6 +88,7 @@ impl<C: Config> Client<C> {
         TransactionStatus::new(self)
     }
 
+    /// builds the request and makes the post request to the api endpoint
     pub(crate) async fn post<I, O>(&self, path: &str, request: I) -> Result<O, MpesaError>
     where
         I: Serialize + std::fmt::Debug,
@@ -98,6 +103,7 @@ impl<C: Config> Client<C> {
         self.execute(request).await
     }
 
+    /// handles the deserialization of a successful response or an error
     async fn execute<O>(&self, request: reqwest::Request) -> Result<O, MpesaError>
     where
         O: DeserializeOwned,
@@ -115,15 +121,16 @@ impl<C: Config> Client<C> {
             .bytes()
             .await
             .map_err(MpesaError::Reqwest)?;
-            if !status.is_success() {
-                let wrapped_error: ApiError = serde_json::from_slice(bytes.as_ref())
-                    .map_err(|e| map_deserialization_error(e, bytes.as_ref()))?;
-            
-                return Err(MpesaError::ApiError(wrapped_error));
-            }
-    
-            let response: O = serde_json::from_slice(bytes.as_ref())
+
+        if !status.is_success() {
+            let wrapped_error: ApiError = serde_json::from_slice(bytes.as_ref())
                 .map_err(|e| map_deserialization_error(e, bytes.as_ref()))?;
+            
+            return Err(MpesaError::ApiError(wrapped_error));
+        }
+    
+        let response: O = serde_json::from_slice(bytes.as_ref())
+            .map_err(|e| map_deserialization_error(e, bytes.as_ref()))?;
 
         Ok(response)
     }
