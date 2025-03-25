@@ -20,6 +20,6 @@ impl <'m, C: Config> Tax<'m, C> {
         &self,
         request: TaxRemitRequest,
     ) -> Result<TaxRemitResponse, MpesaError> {
-        self.client.post("/b2b/v1/remittax", request).await
+        self.client.post("/mpesa/b2b/v1/remittax", request).await
     }
 }

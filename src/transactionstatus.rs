@@ -20,6 +20,6 @@ impl <'m, C: Config> TransactionStatus<'m, C> {
         &self,
         request: TransactionStatusRequest,
     ) -> Result<TransactionStatusResponse, MpesaError> {
-        self.client.post("/transactionstatus/v1/query", request).await
+        self.client.post("/mpesa/transactionstatus/v1/query", request).await
     }
 }

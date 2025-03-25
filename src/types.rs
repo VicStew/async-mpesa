@@ -332,3 +332,201 @@ pub struct InvoiceItems {
     itemName: String,
     amount: String,
 }
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "BillOnboardingRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct BillOnboardingRequest {
+    shortcode: String,
+    email: String,
+    officialContact: String,
+    sendReminders: String,
+    logo: String,
+    Callbackurl: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct BillOnboardingResponse {
+    app_key: String,
+    resmsg: String,
+    rescode: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "ReconciliationRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct ReconciliationRequest {
+    transactionId: String,
+    paidAmount: String,
+    msisdn: String,
+    dateCreated: String,
+    accountReference: String,
+    shortCode: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct ReconciliationResponse {
+    resmsg: String,
+    rescode: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "CancelInvoiceRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct CancelInvoiceRequest {
+    externalReference: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct CancelInvoiceResponse {
+    Status_Message: String,
+    resmsg: String,
+    rescode: String,
+    error: Vec<String>,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "BillUpdateRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct BillUpdateRequest {
+    shortcode: String,
+    email: String,
+    officialContact: String,
+    sendReminders: String,
+    logo: String,
+    Callbackurl: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct BillUpdateResponse {
+    resmsg: String,
+    rescode: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "B2bExpressRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct B2bExpressRequest {
+    primaryShortCode: String,
+    receiverShortCode: String,
+    amount: String,
+    paymentRef: String,
+    CallBackUrl: String,
+    partnerName: String,
+    RequestRefID: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct B2bExpressResponse {
+    code: String,
+    status: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "B2cTopUpRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct B2cTopUpRequest {
+    Initiator: String,
+    SecurityCredential: String,
+    CommandID: String,
+    SenderIdentifierType: String,
+    ReceiverIdentifierType: String,
+    Amount: String,
+    PartyA: String,
+    PartyB: String,
+    AccountReference: String,
+    Requester: String,
+    Remarks: String,
+    QueueTimeOutURL: String,
+    ResultURL: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct B2cTopUpResponse {
+    OriginatorConversationID: String,
+    ConversationID: String,
+    ResponseCode: String,
+    ResponseDescription: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "RatibaRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct RatibaRequest {
+    StandingOrderName: String,
+    StartDate: String,
+    EndDate: String,
+    BusinessShortCode: String,
+    TransactionType: String,
+    ReceiverPartyIdentifierType: String,
+    Amount: String,
+    PartyA: String,
+    CallBackURL: String,
+    AccountReference: String,
+    TransactionDesc: String,
+    Frequency: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct RatibaResponse {
+    ResponseHeader: ResponseHeaderRatiba,
+    ResponseBody: ResponseBodyRatiba,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct ResponseHeaderRatiba {
+    responseRefID: String,
+    responseCode: String,
+    responseDescription: String,
+    ResultDesc: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct ResponseBodyRatiba {
+    responseDescription: String,
+    responseCode: String,
+}
