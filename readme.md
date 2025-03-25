@@ -74,73 +74,73 @@ println!("{:?}", response);
 # Methods to make requests to the mpesa api
 To access different request use the following methods to access the apis mpesa provides.
 1. Account Balance
-   ```rust
-   AccountBalanceRequestArgs::Default()
-   ```
+```rust
+AccountBalanceRequestArgs::Default()
+```
 3. B2B Express
-    ```rust
-    B2bExpressRequestArgs::Default()
-    ```
+```rust
+B2bExpressRequestArgs::Default()
+```
 4. B2C Account Top Up
-    ```rust
-    B2cTopUpRequestArgs::Default()
-    ```
+```rust
+B2cTopUpRequestArgs::Default()
+```
 5. B2C
-   ```rust
-   B2CRequestArgs::Default()
-   ```
+```rust
+B2CRequestArgs::Default()
+```
 6. Business Buy Goods
-   ```rust
-   BusinessBuyGoodsRequestArgs::Default()
-   ```
+```rust
+BusinessBuyGoodsRequestArgs::Default()
+```
 7. Payment and Reconciliation
-    ```rust
-    ReconciliationRequestArgs::Default()
-    ```
+```rust
+ReconciliationRequestArgs::Default()
+```
 8. Bill Manager Onboarding Generic API
-    ```rust
-    BillOnboardingRequestArgs::Default()
-    ```
+```rust
+BillOnboardingRequestArgs::Default()
+```
 9. Updating Optin Details
-    ```rust
-    BillUpdateArgs::Default()
-    ```
+```rust
+BillUpdateArgs::Default()
+```
 10. Business PayBill
-   ```rust
-   BusinessPayBillRequestArgs::Default()
-   ```
+```rust
+BusinessPayBillRequestArgs::Default()
+```
 11. Cancel Single Invoicing
-    ```rust
-    CancelInvoiceRequestArgs::Default()
-    ```
+```rust
+CancelInvoiceRequestArgs::Default()
+```
 12. Mpesa Express Query
-   ```rust
-   ExpressQueryRequestArgs::Default()
-   ```
+```rust
+ExpressQueryRequestArgs::Default()
+```
 13. QR code
-   ```rust
-   QRRequestArgs::Default()
-   ```
+```rust
+QRRequestArgs::Default()
+```
 14. Mpesa Ratiba
-    ```rust
-    RatibaRequestArgs::Default()
-    ```
+```rust
+RatibaRequestArgs::Default()
+```
 15. Reverse Transaction
-   ```rust
-   ReversalRequestArgs::Default()
-   ```
+```rust
+ReversalRequestArgs::Default()
+```
 16. Mpesa Express (STK Push)
-   ```rust
-   ExpressPushRequestArgs::Default()
-   ```
+```rust
+ExpressPushRequestArgs::Default()
+```
 17. Transaction Status
-    ```rust
-    TransactionStatusRequestArgs::Default()
-    ```
+```rust
+TransactionStatusRequestArgs::Default()
+```
 18. Tax Remit
-    ```rust
-    TaxRemitRequestArgs::Default()
-    ```
+```rust
+TaxRemitRequestArgs::Default()
+```
 
 Note you can override the default configs eg. The Mpesa API urls. You can do this by using the 
 ```rust
@@ -148,7 +148,7 @@ Note you can override the default configs eg. The Mpesa API urls. You can do thi
 .with_api_url()
 .with_environment()
 ```
-functions when creating the client to override the default behaviour and switch url or switch url environments by specifying the environment.
+functions when creating the client to override the default behaviour and switch url or switch url environments by specifying the environment, by passing this enum to the with_environment function.
 
 ```rust
 pub enum Environment {
