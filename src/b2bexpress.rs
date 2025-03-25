@@ -5,7 +5,7 @@ use crate::{
     types::{B2bExpressRequest, B2bExpressResponse}
 };
 
-/// Client to call Cancel Invoice API
+/// Client to call B2b Express API
 pub struct B2bExpress<'m, C: Config> {
     client: &'m Client<C>,
 }

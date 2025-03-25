@@ -71,7 +71,7 @@ mod client;
 mod accountbalance;
 mod b2c;
 mod b2bexpress;
-mod b2btopup;
+mod b2ctopup;
 mod bill_reconciliation;
 mod billupdate;
 mod billmanager;

@@ -5,7 +5,7 @@ use crate::{
     types::{B2cTopUpRequest, B2cTopUpResponse}
 };
 
-/// Client to call Cancel Invoice API
+/// Client to call B2c Account TopUp
 pub struct B2bTopup<'m, C: Config> {
     client: &'m Client<C>,
 }

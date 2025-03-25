@@ -5,7 +5,7 @@ use crate::{
     types::{BillUpdateRequest, BillUpdateResponse}
 };
 
-/// Client to call Bill Reconciliation API
+/// Client to call Bill Optin details Update API
 pub struct BillUpdate<'m, C: Config> {
     client: &'m Client<C>,
 }

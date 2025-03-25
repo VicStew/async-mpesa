@@ -5,7 +5,7 @@ use crate::{
     types::{RatibaRequest, RatibaResponse}
 };
 
-/// Client to call Cancel Invoice API
+/// Client to call the Standing Order API
 pub struct Ratiba<'m, C: Config> {
     client: &'m Client<C>,
 }
