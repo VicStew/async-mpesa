@@ -20,6 +20,6 @@ impl <'m, C: Config> SingleInvoice<'m, C> {
         &self,
         request: SingleInvoicingRequest,
     ) -> Result<SingleInvoicingResponse, MpesaError> {
-        self.client.post("/billmanager-invoice/single-invoicing", request).await
+        self.client.post("/v1/billmanager-invoice/single-invoicing", request).await
     }
 }

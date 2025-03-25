@@ -20,6 +20,6 @@ impl <'m, C: Config> AccountBalance<'m, C> {
         &self,
         request: AccountBalanceRequest,
     ) -> Result<AccountBalanceResponse, MpesaError> {
-        self.client.post("/accountbalance/v1/query", request).await
+        self.client.post("/mpesa/accountbalance/v1/query", request).await
     }
 }

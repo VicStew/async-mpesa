@@ -20,6 +20,6 @@ impl <'m, C: Config> ExpressQuery<'m, C> {
         &self,
         request: ExpressQueryRequest,
     ) -> Result<ExpressQueryResponse, MpesaError> {
-        self.client.post("/stkpushquery/v1/query", request).await
+        self.client.post("/mpesa/stkpushquery/v1/query", request).await
     }
 }

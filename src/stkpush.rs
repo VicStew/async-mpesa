@@ -20,6 +20,6 @@ impl <'m, C: Config> STKPush<'m, C> {
         &self,
         request: ExpressPushRequest,
     ) -> Result<ExpressPushResponse, MpesaError> {
-        self.client.post("/stkpush/v1/processrequest", request).await
+        self.client.post("/mpesa/stkpush/v1/processrequest", request).await
     }
 }

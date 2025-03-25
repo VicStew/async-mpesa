@@ -20,6 +20,6 @@ impl <'m, C: Config> B2C<'m, C> {
         &self,
         request: B2CRequest,
     ) -> Result<B2CResponse, MpesaError> {
-        self.client.post("/b2c/v1/paymentrequest", request).await
+        self.client.post("/mpesa/b2c/v3/paymentrequest", request).await
     }
 }

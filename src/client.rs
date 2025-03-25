@@ -1,12 +1,7 @@
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
-    config::{Config, MpesaConfig},
-    error::{MpesaError, map_deserialization_error, ApiError}, 
-    accountbalance::AccountBalance, 
-    b2c::B2C, 
-    expressquery::ExpressQuery, 
-    qr::QR, reversal::Reversal, stkpush::STKPush, tax::Tax, transactionstatus::TransactionStatus, bbuygoods::Bbuygoods, singleinvoice::SingleInvoice,
+    accountbalance::AccountBalance, b2bexpress::B2bExpress, b2btopup::B2bTopup, b2c::B2C, bbuygoods::Bbuygoods, bill_reconciliation::Reconciliation, billmanager::BillOnboarding, billupdate::BillUpdate, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{map_deserialization_error, ApiError, MpesaError}, expressquery::ExpressQuery, qr::Qr, ratiba::Ratiba, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, tax::Tax, transactionstatus::TransactionStatus
 };
 
 #[derive(Debug, Clone)]
@@ -52,20 +47,48 @@ impl<C: Config> Client<C> {
         B2C::new(self)
     }
 
+    pub fn b2bexpress(&self) -> B2bExpress<C> {
+        B2bExpress::new(self)
+    }
+    
+    pub fn b2btopup(&self) -> B2bTopup<C> {
+        B2bTopup::new(self)
+    }
+
     pub fn bbuygoods(&self) -> Bbuygoods<C> {
         Bbuygoods::new(self)
+    }
+
+    pub fn billreconciliation(&self) -> Reconciliation<C> {
+        Reconciliation::new(self)
+    }
+
+    pub fn billupdate(&self) -> BillUpdate<C> {
+        BillUpdate::new(self)
+    }
+
+    pub fn billmanager(&self) -> BillOnboarding<C> {
+        BillOnboarding::new(self)
     }
 
     pub fn bpaybill(&self) -> Bbuygoods<C> {
         Bbuygoods::new(self)
     }
 
+    pub fn cancelinvoice(&self) -> CancelInvoice<C> {
+        CancelInvoice::new(self)
+    }
+
     pub fn expressquery(&self) -> ExpressQuery<C> {
         ExpressQuery::new(self)
     }
 
-    pub fn qr(&self) -> QR<C> {
-        QR::new(self)
+    pub fn qr(&self) -> Qr<C> {
+        Qr::new(self)
+    }
+
+    pub fn ratiba(&self) -> Ratiba<C> {
+        Ratiba::new(self)
     }
 
     pub fn reversal(&self) -> Reversal<C> {

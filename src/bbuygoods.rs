@@ -19,6 +19,6 @@ impl <'m, C: Config> Bbuygoods<'m, C> {
         &self,
         request: BusinessBuyGoodsRequest,
     ) -> Result<BusinessBuyGoodsResponse, MpesaError> {
-        self.client.post("/b2b/v1/paymentrequest", request).await
+        self.client.post("/mpesa/b2b/v1/paymentrequest", request).await
     }
 }

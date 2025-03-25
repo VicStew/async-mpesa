@@ -20,6 +20,6 @@ impl <'m, C: Config> Reversal<'m, C> {
         &self,
         request: ReversalRequest,
     ) -> Result<ReversalResponse, MpesaError> {
-        self.client.post("/reversal/v1/request", request).await
+        self.client.post("/mpesa/reversal/v1/request", request).await
     }
 }

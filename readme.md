@@ -8,7 +8,7 @@ use base64::{Engine as _, engine::general_purpose};
 #[derive(Debug. Serialize, Deserialize)]
 struct Response {
     access_token: String,
-    expires_in: i32,
+    expires_in: String,
 }
 
 #[tokio::main]
@@ -32,7 +32,7 @@ async fn main() {
     let response: Response = serde_json::from_slice(bytes.as_ref())
         .unwrap();
 
-    println!({:?}, response);
+    println!("{:?}", response);
 }
 ```
 
@@ -77,41 +77,82 @@ To access different request use the following methods to access the apis mpesa p
    ```rust
    AccountBalanceRequestArgs::Default()
    ```
-2. B2C
+3. B2B Express
+    ```rust
+    B2bExpressRequestArgs::Default()
+    ```
+4. B2C Account Top Up
+    ```rust
+    B2cTopUpRequestArgs::Default()
+    ```
+5. B2C
    ```rust
    B2CRequestArgs::Default()
    ```
-3. Business Buy Goods
+6. Business Buy Goods
    ```rust
    BusinessBuyGoodsRequestArgs::Default()
    ```
-4. Business PayBill
+7. Payment and Reconciliation
+    ```rust
+    ReconciliationRequestArgs::Default()
+    ```
+8. Bill Manager Onboarding Generic API
+    ```rust
+    BillOnboardingRequestArgs::Default()
+    ```
+9. Updating Optin Details
+    ```rust
+    BillUpdateArgs::Default()
+    ```
+10. Business PayBill
    ```rust
    BusinessPayBillRequestArgs::Default()
    ```
-5. Mpesa Express Query
+11. Cancel Single Invoicing
+    ```rust
+    CancelInvoiceRequestArgs::Default()
+    ```
+12. Mpesa Express Query
    ```rust
    ExpressQueryRequestArgs::Default()
    ```
-6. QR code
+13. QR code
    ```rust
    QRRequestArgs::Default()
    ```
-7. Reverse Transaction
+14. Mpesa Ratiba
+    ```rust
+    RatibaRequestArgs::Default()
+    ```
+15. Reverse Transaction
    ```rust
    ReversalRequestArgs::Default()
    ```
-8. Mpesa Express (STK Push)
+16. Mpesa Express (STK Push)
    ```rust
    ExpressPushRequestArgs::Default()
    ```
-9. Transaction Status
+17. Transaction Status
     ```rust
     TransactionStatusRequestArgs::Default()
     ```
-10. Tax Remit
+18. Tax Remit
     ```rust
     TaxRemitRequestArgs::Default()
     ```
 
-This library still works for those targeting the `wasm` architecture.
+Note you can override the default configs eg. The Mpesa API urls. You can do this by using the 
+```rust
+.with_access_token()
+.with_api_url()
+.with_environment()
+```
+functions when creating the client to override the default behaviour and switch url or switch url environments by specifying the environment.
+
+```rust
+pub enum Environment {
+    Sandbox,
+    Production,
+}
+```

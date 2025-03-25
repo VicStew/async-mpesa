@@ -6,11 +6,11 @@ use crate::{
 };
 
 /// Client to call the qr code generator API
-pub struct QR<'m, C: Config> {
+pub struct Qr<'m, C: Config> {
     client: &'m Client<C>,
 }
 
-impl <'m, C: Config> QR<'m, C> {
+impl <'m, C: Config> Qr<'m, C> {
     pub fn new(client: &'m Client<C>) -> Self {
         Self { client }
     }
@@ -20,6 +20,6 @@ impl <'m, C: Config> QR<'m, C> {
         &self,
         request: QRRequest,
     ) -> Result<QRResponse, MpesaError> {
-        self.client.post("/qrcode/v1/generate", request).await
+        self.client.post("/mpesa/qrcode/v1/generate", request).await
     }
 }

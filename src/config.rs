@@ -1,7 +1,8 @@
 use reqwest::header::{ HeaderMap, AUTHORIZATION };
 
 ///Default v1 API base url
-pub const MPESA_API_URL: &str = "https://sandbox.safaricom.co.ke/mpesa";
+pub const MPESA_SANDBOX_API_URL: &str = "https://sandbox.safaricom.co.ke";
+pub const MPESA_PRODUCTION_API_URL: &str = "https://api.safaricom.co.ke";
 
 pub trait Config: Clone {
     fn headers(&self) -> HeaderMap;
@@ -10,18 +11,27 @@ pub trait Config: Clone {
     fn access_token(&self) -> &str;
 }
 
+#[derive(Clone, Debug)]
+pub enum Environment {
+    Sandbox,
+    Production,
+}
+
 ///Configuration for Mpesa API
 #[derive(Clone, Debug)]
 pub struct MpesaConfig {
     api_url: String,
     access_token: String,
+    environment: Environment,
 }
 
+/// Default configuration if none are overriden by the structs' method
 impl Default for MpesaConfig {
     fn default() -> Self {
         Self { 
-            api_url: MPESA_API_URL.to_string(), 
-            access_token: std::env::var("MPESA_ACCESS_TOKEN").unwrap_or_else(|_| "".to_string())
+            api_url: MPESA_SANDBOX_API_URL.to_string(), 
+            access_token: std::env::var("MPESA_ACCESS_TOKEN").unwrap_or_else(|_| "".to_string()),
+            environment: Environment::Sandbox
         }
     }
 }
@@ -43,6 +53,11 @@ impl MpesaConfig {
         self.api_url = api_url.into();
         self
     }
+
+    pub fn with_environment(mut self, environment: Environment) -> Self {
+        self.environment = environment;
+        self
+    }
 }
 
 impl Config for MpesaConfig {
@@ -58,7 +73,10 @@ impl Config for MpesaConfig {
     }
 
     fn url(&self, path: &str) -> String {
-        format!("{}{}", MPESA_API_URL, path)
+        match &self.environment {
+            Environment::Sandbox => format!("{}{}", MPESA_SANDBOX_API_URL, path),
+            Environment::Production => format!("{}{}", MPESA_PRODUCTION_API_URL, path)
+        }
     }
 
     fn api_url(&self) -> &str {
