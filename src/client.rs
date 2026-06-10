@@ -1,21 +1,41 @@
+use reqwest::header::AUTHORIZATION;
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
-    accountbalance::AccountBalance, b2bexpress::B2bExpress, b2ctopup::B2bTopup, b2c::B2C, bbuygoods::Bbuygoods, bill_reconciliation::Reconciliation, billmanager::BillOnboarding, billupdate::BillUpdate, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{map_deserialization_error, ApiError, MpesaError}, expressquery::ExpressQuery, qr::Qr, ratiba::Ratiba, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, tax::Tax, transactionstatus::TransactionStatus
+    accountbalance::AccountBalance,
+    authorization::Authorization,
+    b2bexpress::B2bExpress,
+    b2c::B2C,
+    b2ctopup::B2bTopup,
+    bbuygoods::Bbuygoods,
+    bill_reconciliation::Reconciliation,
+    billmanager::BillOnboarding,
+    billupdate::BillUpdate,
+    cancelinvoice::CancelInvoice,
+    config::{Config, MpesaConfig},
+    error::{ApiError, MpesaError, map_deserialization_error},
+    expressquery::ExpressQuery,
+    qr::Qr,
+    ratiba::Ratiba,
+    reversal::Reversal,
+    singleinvoice::SingleInvoice,
+    stkpush::STKPush,
+    tax::Tax,
+    transactionstatus::TransactionStatus, types::AuthorizationResponse,
 };
 
 #[derive(Debug, Clone)]
 pub struct Client<C: Config> {
     http_client: reqwest::Client,
-    config: C
+    config: C,
 }
 
 impl Client<MpesaConfig> {
     /// Client with default [MpesaConfig]
     pub fn new() -> Self {
-        Self { 
-            http_client: reqwest::Client::new(), 
-            config: MpesaConfig::default() 
+        Self {
+            http_client: reqwest::Client::new(),
+            config: MpesaConfig::default(),
         }
     }
 }
@@ -23,24 +43,27 @@ impl Client<MpesaConfig> {
 impl<C: Config> Client<C> {
     /// Create client with [MpesaConfig]
     pub fn with_config(config: C) -> Self {
-        Self { 
-            http_client: reqwest::Client::new(), 
+        Self {
+            http_client: reqwest::Client::new(),
             config,
         }
     }
 
     /// Provide your own [client] to make HTTP requests with
-    /// 
+    ///
     /// [client]: reqwest::Client
     pub fn with_http_client(mut self, http_client: reqwest::Client) -> Self {
         self.http_client = http_client;
         self
     }
 
-
     // API groups
     pub fn accountbalance(&self) -> AccountBalance<C> {
         AccountBalance::new(self)
+    }
+
+    pub fn authorization(&self) -> Authorization<C> {
+        Authorization::new(self)
     }
 
     pub fn b2c(&self) -> B2C<C> {
@@ -50,7 +73,7 @@ impl<C: Config> Client<C> {
     pub fn b2bexpress(&self) -> B2bExpress<C> {
         B2bExpress::new(self)
     }
-    
+
     pub fn b2btopup(&self) -> B2bTopup<C> {
         B2bTopup::new(self)
     }
@@ -126,6 +149,18 @@ impl<C: Config> Client<C> {
         self.execute(request).await
     }
 
+    /// builds the request and makes the get request to the api endpoint
+    pub(crate) async fn get(&self, path: &str, encoded_auth: String) -> Result<AuthorizationResponse, MpesaError>
+    {
+        let request = self
+        .http_client
+        .get(self.config.url(path))
+        .header("Authorization", format!("Basic {}", encoded_auth))
+        .build()?;
+
+    self.execute(request).await
+    }
+
     /// handles the deserialization of a successful response or an error
     async fn execute<O>(&self, request: reqwest::Request) -> Result<O, MpesaError>
     where
@@ -140,22 +175,18 @@ impl<C: Config> Client<C> {
 
         let status = response.status();
 
-        let bytes = response
-            .bytes()
-            .await
-            .map_err(MpesaError::Reqwest)?;
+        let bytes = response.bytes().await.map_err(MpesaError::Reqwest)?;
 
         if !status.is_success() {
             let wrapped_error: ApiError = serde_json::from_slice(bytes.as_ref())
                 .map_err(|e| map_deserialization_error(e, bytes.as_ref()))?;
-            
+
             return Err(MpesaError::ApiError(wrapped_error));
         }
-    
+
         let response: O = serde_json::from_slice(bytes.as_ref())
             .map_err(|e| map_deserialization_error(e, bytes.as_ref()))?;
 
         Ok(response)
     }
-    
 }

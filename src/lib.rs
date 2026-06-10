@@ -69,6 +69,7 @@ pub mod types;
 pub mod error;
 mod client;
 mod accountbalance;
+mod authorization;
 mod b2c;
 mod b2bexpress;
 mod b2ctopup;

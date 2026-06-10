@@ -5,6 +5,25 @@ use crate::error::MpesaError;
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "AuthorizationRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct AuthorizationRequest {
+    pub ConsumerKey: String,
+    pub ConsumerSecret: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct AuthorizationResponse {
+    pub AccessToken: String,
+    pub ExpiresIn: u16
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "AccountBalanceRequestArgs")]
 #[builder(pattern = "mutable")]
 #[builder(setter(into, strip_option))]
