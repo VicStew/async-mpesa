@@ -82,6 +82,64 @@ pub struct ExpressPushResponse {
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "RegisterPullRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct RegisterPullRequest {
+    pub ShortCode: String,
+    pub RequestType: String,
+    pub NominatedNumber: String,
+    pub CallBackURL: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct RegisterPullResponse {
+    ResponseRefID: String,
+    ResponseStatus: String,
+    ShortCode: String,
+    ResponseDescription: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "PullTransactionsRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct PullTransactionsRequest {
+    pub ShortCode: String,
+    pub StartDate: String,
+    pub EndDate: String,
+    pub OffSetValue: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct PullTransactionsResponse {
+    ResponseRefID: String,
+    ResponseCode: String,
+    ResponseMessage: String,
+    Response: Vec<PulledTransactions>,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct PulledTransactions {
+    transactionId: String,
+    trxDate: String,
+    msisdn: String,
+    transactiontype: String,
+    billreference: String,
+    amount: String,
+    organizationname: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "B2CRequestArgs")]
 #[builder(pattern = "mutable")]
 #[builder(setter(into, strip_option))]

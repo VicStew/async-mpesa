@@ -1,4 +1,3 @@
-use reqwest::header::AUTHORIZATION;
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
@@ -15,8 +14,10 @@ use crate::{
     config::{Config, MpesaConfig},
     error::{ApiError, MpesaError, map_deserialization_error},
     expressquery::ExpressQuery,
+    pulltransactions::PullTransactions,
     qr::Qr,
     ratiba::Ratiba,
+    registerpull::RegisterPull,
     reversal::Reversal,
     singleinvoice::SingleInvoice,
     stkpush::STKPush,
@@ -106,12 +107,20 @@ impl<C: Config> Client<C> {
         ExpressQuery::new(self)
     }
 
+    pub fn pulltransactions(&self) -> PullTransactions<C> {
+        PullTransactions::new(self)
+    }
+
     pub fn qr(&self) -> Qr<C> {
         Qr::new(self)
     }
 
     pub fn ratiba(&self) -> Ratiba<C> {
         Ratiba::new(self)
+    }
+
+    pub fn registerpull(&self) -> RegisterPull<C> {
+        RegisterPull::new(self)
     }
 
     pub fn reversal(&self) -> Reversal<C> {
