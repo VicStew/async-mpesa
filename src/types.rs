@@ -212,10 +212,34 @@ pub struct QRRequest {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct QRResponse {
-    pub ResponseCode: i16,
+    pub ResponseCode: u32,
     pub RequestID: String,
     pub ResponseDescription: String,
     pub QRCode: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "QueryOrgInfoRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct QueryOrgInfoRequest {
+    pub IdentifierType: String,
+    pub Identifier: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct QueryOrgInfoResponse {
+    pub ConversationID: String,
+    pub ResponseCode: String,
+    pub ResponseMessage: String,
+    pub DetailedMessage: String,
+    pub OrganizationShortCode: String,
+    pub OrganizationName: String,
+    pub ChargeProfileID: String
 }
 
 /// Reverses a C2B M-Pesa Transaction
@@ -435,6 +459,48 @@ pub struct BillOnboardingResponse {
     rescode: String,
 }
 
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "SwapRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct SwapRequest {
+    customerNumber: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct SwapResponse {
+    requestRefID: String,
+    responseCode: String,
+    responseDesc: String,
+    lastSwapDate: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IMSIRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct IMSIRequest {
+    customerNumber: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IMSIResponse {
+    requestRefID: String,
+    responseCode: String,
+    responseDesc: String,
+    imsi: String,
+    lastSwapDate: String,
+    msisdnRegistrationDate: String,
+    customerNumber: String,
+}
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
@@ -451,6 +517,73 @@ pub struct ReconciliationRequest {
     shortCode: String,
 }
 
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "CalculatePointsRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct CalculatePointsRequest {
+    points: String,
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct CalculatePointsResponse {
+    header: CalculatePointsResponseHeader,
+    body: CalculatePointsResponseBody
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct CalculatePointsResponseHeader {
+    requestRefID: String,
+    responseCode: u32,
+    responseMessage: String,
+    customerMessage: String,
+    timestamp: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct CalculatePointsResponseBody {
+    amount: String,
+    points: String,
+    rate: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "RedeemPointsRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct RedeemPointsRequest {
+    msisdn: String,
+    amount: u32,
+    bongaPoints: u32,
+    conversionRate: u32,
+    shortCode: String,
+    accountNumber: String
+}
+
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct RedeemPointsResponse {
+    header: RedeemPointsResponseHeader,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct RedeemPointsResponseHeader {
+    requestRefID: String,
+    responseCode: u32,
+    responseMessage: String,
+    customerMessage: String,
+    timestamp: String
+}
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
@@ -458,7 +591,6 @@ pub struct ReconciliationResponse {
     resmsg: String,
     rescode: String,
 }
-
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
@@ -470,7 +602,6 @@ pub struct CancelInvoiceRequest {
     externalReference: String,
 }
 
-
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct CancelInvoiceResponse {
@@ -479,7 +610,6 @@ pub struct CancelInvoiceResponse {
     rescode: String,
     error: Vec<String>,
 }
-
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
@@ -496,14 +626,12 @@ pub struct BillUpdateRequest {
     Callbackurl: String,
 }
 
-
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct BillUpdateResponse {
     resmsg: String,
     rescode: String,
 }
-
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
@@ -521,14 +649,12 @@ pub struct B2bExpressRequest {
     RequestRefID: String,
 }
 
-
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct B2bExpressResponse {
     code: String,
     status: String,
 }
-
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
@@ -552,7 +678,6 @@ pub struct B2cTopUpRequest {
     ResultURL: String,
 }
 
-
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct B2cTopUpResponse {
@@ -562,6 +687,34 @@ pub struct B2cTopUpResponse {
     ResponseDescription: String,
 }
 
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "B2PochiRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+pub struct B2PochiRequest {
+    OriginatorConversationID: String,
+    InitiatorName: String,
+    SecurityCredential: String,
+    CommandID: String,
+    Amount: String,
+    PartyA: String,
+    PartyB: String,
+    Remarks: String,
+    QueueTimeOutURL: String,
+    ResultURL: String,
+    Occassion: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct B2PochiResponse {
+    ConversationID: String,
+    OriginatorConversationID: String,
+    ResponseCode: String,
+    ResponseDescription: String,
+}
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
@@ -583,7 +736,6 @@ pub struct RatibaRequest {
     TransactionDesc: String,
     Frequency: String,
 }
-
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]

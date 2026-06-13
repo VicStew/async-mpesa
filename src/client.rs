@@ -1,28 +1,7 @@
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
-    accountbalance::AccountBalance,
-    authorization::Authorization,
-    b2bexpress::B2bExpress,
-    b2c::B2C,
-    b2ctopup::B2bTopup,
-    bbuygoods::Bbuygoods,
-    bill_reconciliation::Reconciliation,
-    billmanager::BillOnboarding,
-    billupdate::BillUpdate,
-    cancelinvoice::CancelInvoice,
-    config::{Config, MpesaConfig},
-    error::{ApiError, MpesaError, map_deserialization_error},
-    expressquery::ExpressQuery,
-    pulltransactions::PullTransactions,
-    qr::Qr,
-    ratiba::Ratiba,
-    registerpull::RegisterPull,
-    reversal::Reversal,
-    singleinvoice::SingleInvoice,
-    stkpush::STKPush,
-    tax::Tax,
-    transactionstatus::TransactionStatus, types::AuthorizationResponse,
+    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
 };
 
 #[derive(Debug, Clone)]
@@ -79,6 +58,10 @@ impl<C: Config> Client<C> {
         B2bTopup::new(self)
     }
 
+    pub fn b2pochi(&self) -> B2Pochi<C> {
+        B2Pochi::new(self)
+    }
+
     pub fn bbuygoods(&self) -> Bbuygoods<C> {
         Bbuygoods::new(self)
     }
@@ -99,12 +82,20 @@ impl<C: Config> Client<C> {
         Bbuygoods::new(self)
     }
 
+    pub fn calculatepoints(&self) -> CalculatePoints<C> {
+        CalculatePoints::new(self)
+    }
+
     pub fn cancelinvoice(&self) -> CancelInvoice<C> {
         CancelInvoice::new(self)
     }
 
     pub fn expressquery(&self) -> ExpressQuery<C> {
         ExpressQuery::new(self)
+    }
+
+    pub fn imsi(&self) -> IMSI<C> {
+        IMSI::new(self)
     }
 
     pub fn pulltransactions(&self) -> PullTransactions<C> {
@@ -115,8 +106,16 @@ impl<C: Config> Client<C> {
         Qr::new(self)
     }
 
+    pub fn queryorginfo(&self) -> QueryOrgInfo<C> {
+        QueryOrgInfo::new(self)
+    }
+
     pub fn ratiba(&self) -> Ratiba<C> {
         Ratiba::new(self)
+    }
+
+    pub fn redeempoints(&self) -> RedeemPoints<C> {
+        RedeemPoints::new(self)
     }
 
     pub fn registerpull(&self) -> RegisterPull<C> {
@@ -133,6 +132,10 @@ impl<C: Config> Client<C> {
 
     pub fn stkpush(&self) -> STKPush<C> {
         STKPush::new(self)
+    }
+
+    pub fn swap(&self) -> Swap<C> {
+        Swap::new(self)
     }
 
     pub fn taxremit(&self) -> Tax<C> {
