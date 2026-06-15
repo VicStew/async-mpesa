@@ -242,6 +242,173 @@ pub struct QueryOrgInfoResponse {
     pub ChargeProfileID: String
 }
 
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotAllSimsRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotAllSimsRequest {
+    pub vpnGroup: String,
+    pub startAtIndex: String,
+    pub pageSize: String,
+    pub username: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotAllSimsResponse {
+    pub header: ResponseHeader,
+    pub body: IotAllSimsResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotAllSimsResponseBody {
+    pub Desc: Vec<IotAllSimsDesc>
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotAllSimsDesc {
+    pub life_cycle_status: String,
+    pub iccid: String,
+    pub asset_name: String,
+    pub activation_date: String,
+    pub expiry_date: String,
+    pub imei: String,
+    pub product_status: String,
+    pub imsi: String,
+    pub msisdn: String,
+    pub vpn_group: String,
+    pub activation_agent: String,
+
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotQLifeCycleRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotQLifeCycleRequest {
+    pub msisdn: String,
+    pub vpnGroup: String,
+    pub username: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotQLifeCycleResponse {
+    pub header: ResponseHeader,
+    pub body: IotQLifeCycleResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotQLifeCycleResponseBody {
+    pub desc: String,
+    pub status: String,
+    pub statusCode: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotQCustomerInfoRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotQCustomerInfoRequest {
+    pub msisdn: String,
+    pub vpnGroup: String,
+    pub username: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotQCustomerInfoResponse {
+    pub header: ResponseHeader,
+    pub body: IotQCustomerInfoResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotQCustomerInfoResponseBody {
+    pub offeringName: String,
+    pub offeringStatus: String,
+    pub subscriberStatus: String,
+    pub offeringId: String,
+    pub vpnGroup: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotSimActivationRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotSimActivationRequest {
+    pub msisdn: String,
+    pub vpnGroup: String,
+    pub username: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotSimActivationResponse {
+    pub header: ResponseHeader,
+    pub body: IotSimActivationResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotSimActivationResponseBody {
+    pub Desc: String,
+    pub requestId: String,
+    pub ID: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotGetActivationTrendsRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotGetActivationTrendsRequest {
+    pub vpnGroup: String,
+    pub startDate: String,
+    pub stopDate: String,
+    pub username: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotGetActivationTrendsResponse {
+    pub header: ResponseHeader,
+    pub body: IotGetActivationTrendsResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotGetActivationTrendsResponseBody {
+    pub body: Vec<ActivationTrendsBody>
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct ActivationTrendsBody {
+    pub pooledTrend: Vec<String>,
+    pub suspendedTrend: Vec<String>,
+    pub dates: Vec<String>,
+    pub activeTrend: Vec<String>,
+    pub idleTrend: Vec<String>
+}
+
 /// Reverses a C2B M-Pesa Transaction
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
@@ -531,13 +698,13 @@ pub struct CalculatePointsRequest {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct CalculatePointsResponse {
-    header: CalculatePointsResponseHeader,
+    header: ResponseHeader,
     body: CalculatePointsResponseBody
 }
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
-pub struct CalculatePointsResponseHeader {
+pub struct ResponseHeader {
     requestRefID: String,
     responseCode: u32,
     responseMessage: String,
@@ -572,17 +739,7 @@ pub struct RedeemPointsRequest {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct RedeemPointsResponse {
-    header: RedeemPointsResponseHeader,
-}
-
-#[allow(non_snake_case)]
-#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
-pub struct RedeemPointsResponseHeader {
-    requestRefID: String,
-    responseCode: u32,
-    responseMessage: String,
-    customerMessage: String,
-    timestamp: String
+    header: ResponseHeader,
 }
 
 #[allow(non_snake_case)]

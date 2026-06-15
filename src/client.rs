@@ -1,7 +1,7 @@
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
-    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
+    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, iotallsims::IotAllSims, iotgetactivationtrends::IotGetActivationTrends, iotqcustomerinfo::IotQCustomerInfo, iotqlifecycle::IotQLifeCycle, iotsimactivation::IotSimActivation, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
 };
 
 #[derive(Debug, Clone)]
@@ -96,6 +96,26 @@ impl<C: Config> Client<C> {
 
     pub fn imsi(&self) -> IMSI<C> {
         IMSI::new(self)
+    }
+
+    pub fn iotallsims(&self) -> IotAllSims<C> {
+        IotAllSims::new(self)
+    }
+
+    pub fn iotgetactivationtrends(&self) -> IotGetActivationTrends<C> {
+        IotGetActivationTrends::new(self)
+    }
+
+    pub fn iotqcustomerinfo(&self) -> IotQCustomerInfo<C> {
+        IotQCustomerInfo::new(self)
+    }
+
+    pub fn iotqlifecycle(&self) -> IotQLifeCycle<C> {
+        IotQLifeCycle::new(self)
+    }
+
+    pub fn iotsimactivation(&self) -> IotSimActivation<C> {
+        IotSimActivation::new(self)
     }
 
     pub fn pulltransactions(&self) -> PullTransactions<C> {

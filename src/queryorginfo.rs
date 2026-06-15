@@ -5,7 +5,7 @@ use crate::{
     types::{QueryOrgInfoRequest, QueryOrgInfoResponse}
 };
 
-/// Client to call the Sim Redeem Bonga Points API
+/// Client to call the Query Org Info API
 pub struct QueryOrgInfo<'m, C: Config> {
     client: &'m Client<C>,
 }
