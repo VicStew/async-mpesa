@@ -390,7 +390,7 @@ pub struct IotGetActivationTrendsRequest {
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct IotGetActivationTrendsResponse {
     pub header: ResponseHeader,
-    pub body: IotGetActivationTrendsResponseBody,
+    pub body: Vec<IotGetActivationTrendsResponseBody>,
 }
 
 #[allow(non_snake_case)]
@@ -407,6 +407,237 @@ pub struct ActivationTrendsBody {
     pub dates: Vec<String>,
     pub activeTrend: Vec<String>,
     pub idleTrend: Vec<String>
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotRenameAssetRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotRenameAssetRequest {
+    pub msisdn: String,
+    pub vpnGroup: String,
+    pub username: String,
+    pub assetName: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotRenameAssetResponse {
+    pub header: ResponseHeader,
+    pub body: IotRenameAssetResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotRenameAssetResponseBody {
+    pub result: String,
+    pub desc: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotSuspSubRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotSuspSubRequest {
+    pub msisdn: String,
+    pub username: String,
+    pub vpnGroup: String,
+    pub product: String,
+    pub operation: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotSuspSubResponse {
+    pub header: ResponseHeader,
+    pub body: IotSuspSubResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotSuspSubResponseBody {
+    pub statusCode: String,
+    pub statusDesc: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotSearchMessagesRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotSearchMessagesRequest {
+    pub searchValue: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotSearchMessagesResponse {
+    pub header: ResponseHeader,
+    pub body: IotMessagesResponseBody,
+    pub pageable: IotMessagesPageable,
+    pub totalPages: u32,
+    pub totalElements: u32,
+    pub last: bool,
+    pub numberOfElements: u32,
+    pub size: u32,
+    pub number: u32,
+    pub sort: IotMessagesPageableSort,
+    pub first: bool,
+    pub empty: bool,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotFilterMessagesRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotFilterMessagesRequest {
+    pub startDate: String,
+    pub endDate: String,
+    pub status: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotFilterMessagesResponse {
+    pub header: ResponseHeader,
+    pub body: IotMessagesResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotGetAllMessagesRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotGetAllMessagesRequest {
+    pub vpnGroup: String,
+    pub pageNo: u32,
+    pub pageSize: u32,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotGetAllMessagesResponse {
+    pub header: ResponseHeader,
+    pub body: IotMessagesResponseBody,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotMessagesResponseBody {
+    pub content: Vec<IotMessagesResponseContent>,
+    pub pageable: IotMessagesPageable,
+    pub totalPages: u32,
+    pub totalElements: u32,
+    pub last: bool,
+    pub numberOfElements: u32,
+    pub size: u32,
+    pub number: u32,
+    pub sort: IotMessagesPageableSort,
+    pub first: bool,
+    pub empty: bool,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotMessagesResponseContent {
+    pub id: u32,
+    pub receiptId: i32,
+    pub sourceAddr: String,
+    pub msisdn: String,
+    pub message: String,
+    pub sourceSystem: String,
+    pub processingStatus: String,
+    pub messageId: String,
+    pub date: String,
+    pub deliveryTime: String,
+    pub description: String,
+    pub vpnGroup: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotMessagesPageable {
+    pub pageNumber: u32,
+    pub pageSize: u32,
+    pub sort: IotMessagesPageableSort,
+    pub offset: i32,
+    pub unpaged: bool,
+    pub paged: bool,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotMessagesPageableSort {
+    pub unsorted: bool,
+    pub sorted: bool,
+    pub empty: bool,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotDeleteThreadRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotDeleteThreadRequest {
+    pub msisdn: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotDeleteThreadResponse {
+    pub header: ResponseHeader,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotSendMessageRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotSendMessageRequest {
+    pub msisdn: String,
+    pub message: String,
+    pub vpnGroup: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotSendMessageResponse {
+    pub header: ResponseHeader,
+    pub body: IotMessagesResponseContent,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "IotDeleteMessageRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct IotDeleteMessageRequest {
+    pub id: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct IotDeleteMessageResponse {
+    pub header: ResponseHeader,
 }
 
 /// Reverses a C2B M-Pesa Transaction

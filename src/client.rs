@@ -1,7 +1,7 @@
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
-    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, iotallsims::IotAllSims, iotgetactivationtrends::IotGetActivationTrends, iotqcustomerinfo::IotQCustomerInfo, iotqlifecycle::IotQLifeCycle, iotsimactivation::IotSimActivation, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
+    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, iotallsims::IotAllSims, iotdeletemessage::IotDeleteMessage, iotdeletethread::IotDeleteThread, iotfiltermessages::IotFilterMessages, iotgetactivationtrends::IotGetActivationTrends, iotgetallmessages::IotGetAllMessages, iotqcustomerinfo::IotQCustomerInfo, iotqlifecycle::IotQLifeCycle, iotrenameasset::IotRenameAsset, iotsearchmessages::IotSearchMessages, iotsendmessage::IotSendMessage, iotsimactivation::IotSimActivation, iotsuspsub::IotSuspSub, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
 };
 
 #[derive(Debug, Clone)]
@@ -102,8 +102,24 @@ impl<C: Config> Client<C> {
         IotAllSims::new(self)
     }
 
+    pub fn iotdeletemessage(&self) -> IotDeleteMessage<C> {
+        IotDeleteMessage::new(self)
+    }
+
+    pub fn iotdeletethread(&self) -> IotDeleteThread<C> {
+        IotDeleteThread::new(self)
+    }
+
+    pub fn iotfiltermessages(&self) -> IotFilterMessages<C> {
+        IotFilterMessages::new(self)
+    }
+
     pub fn iotgetactivationtrends(&self) -> IotGetActivationTrends<C> {
         IotGetActivationTrends::new(self)
+    }
+
+    pub fn iotgetallmessages(&self) -> IotGetAllMessages<C> {
+        IotGetAllMessages::new(self)
     }
 
     pub fn iotqcustomerinfo(&self) -> IotQCustomerInfo<C> {
@@ -114,8 +130,24 @@ impl<C: Config> Client<C> {
         IotQLifeCycle::new(self)
     }
 
+    pub fn iotrenameasset(&self) -> IotRenameAsset<C> {
+        IotRenameAsset::new(self)
+    }
+
+    pub fn iotsearchmessages(&self) -> IotSearchMessages<C> {
+        IotSearchMessages::new(self)
+    }
+
+    pub fn iotsendmessage(&self) -> IotSendMessage<C> {
+        IotSendMessage::new(self)
+    }
+
     pub fn iotsimactivation(&self) -> IotSimActivation<C> {
         IotSimActivation::new(self)
+    }
+
+    pub fn iotsuspsub(&self) -> IotSuspSub<C> {
+        IotSuspSub::new(self)
     }
 
     pub fn pulltransactions(&self) -> PullTransactions<C> {
