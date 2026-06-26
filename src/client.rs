@@ -1,7 +1,50 @@
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
-    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2bhakikisha::B2bHakikisha, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, iotallsims::IotAllSims, iotdeletemessage::IotDeleteMessage, iotdeletethread::IotDeleteThread, iotfiltermessages::IotFilterMessages, iotgetactivationtrends::IotGetActivationTrends, iotgetallmessages::IotGetAllMessages, iotqcustomerinfo::IotQCustomerInfo, iotqlifecycle::IotQLifeCycle, iotrenameasset::IotRenameAsset, iotsearchmessages::IotSearchMessages, iotsendmessage::IotSendMessage, iotsimactivation::IotSimActivation, iotsuspsub::IotSuspSub, mobilevalidation::MobileValidation, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
+    accountbalance::AccountBalance,
+    authorization::Authorization,
+    b2bexpress::B2bExpress,
+    b2bhakikisha::B2bHakikisha,
+    b2c::B2C,
+    b2ctopup::B2bTopup,
+    b2pochi::B2Pochi,
+    bbuygoods::Bbuygoods,
+    billmanager::BillOnboarding,
+    billreconciliation::Reconciliation,
+    billupdate::BillUpdate,
+    calculatebongapoints::CalculatePoints,
+    cancelinvoice::CancelInvoice,
+    config::{Config, MpesaConfig},
+    error::{map_deserialization_error, ApiError, MpesaError},
+    expressquery::ExpressQuery,
+    imsi::IMSI,
+    iotallsims::IotAllSims,
+    iotdeletemessage::IotDeleteMessage,
+    iotdeletethread::IotDeleteThread,
+    iotfiltermessages::IotFilterMessages,
+    iotgetactivationtrends::IotGetActivationTrends,
+    iotgetallmessages::IotGetAllMessages,
+    iotqcustomerinfo::IotQCustomerInfo,
+    iotqlifecycle::IotQLifeCycle,
+    iotrenameasset::IotRenameAsset,
+    iotsearchmessages::IotSearchMessages,
+    iotsendmessage::IotSendMessage,
+    iotsimactivation::IotSimActivation,
+    iotsuspsub::IotSuspSub,
+    mobilevalidation::MobileValidation,
+    pulltransactions::PullTransactions,
+    qr::Qr,
+    queryorginfo::QueryOrgInfo,
+    ratiba::Ratiba,
+    redeembongapoints::RedeemPoints,
+    registerpull::RegisterPull,
+    reversal::Reversal,
+    singleinvoice::SingleInvoice,
+    stkpush::STKPush,
+    swap::Swap,
+    tax::Tax,
+    transactionstatus::TransactionStatus,
+    types::AuthorizationResponse,
 };
 
 #[derive(Debug, Clone)]
@@ -222,15 +265,18 @@ impl<C: Config> Client<C> {
     }
 
     /// builds the request and makes the get request to the api endpoint
-    pub(crate) async fn get(&self, path: &str, encoded_auth: String) -> Result<AuthorizationResponse, MpesaError>
-    {
+    pub(crate) async fn get(
+        &self,
+        path: &str,
+        encoded_auth: String,
+    ) -> Result<AuthorizationResponse, MpesaError> {
         let request = self
-        .http_client
-        .get(self.config.url(path))
-        .header("Authorization", format!("Basic {}", encoded_auth))
-        .build()?;
+            .http_client
+            .get(self.config.url(path))
+            .header("Authorization", format!("Basic {}", encoded_auth))
+            .build()?;
 
-    self.execute(request).await
+        self.execute(request).await
     }
 
     /// handles the deserialization of a successful response or an error
