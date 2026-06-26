@@ -1,7 +1,7 @@
 use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
-    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, iotallsims::IotAllSims, iotdeletemessage::IotDeleteMessage, iotdeletethread::IotDeleteThread, iotfiltermessages::IotFilterMessages, iotgetactivationtrends::IotGetActivationTrends, iotgetallmessages::IotGetAllMessages, iotqcustomerinfo::IotQCustomerInfo, iotqlifecycle::IotQLifeCycle, iotrenameasset::IotRenameAsset, iotsearchmessages::IotSearchMessages, iotsendmessage::IotSendMessage, iotsimactivation::IotSimActivation, iotsuspsub::IotSuspSub, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
+    accountbalance::AccountBalance, authorization::Authorization, b2bexpress::B2bExpress, b2bhakikisha::B2bHakikisha, b2c::B2C, b2ctopup::B2bTopup, b2pochi::B2Pochi, bbuygoods::Bbuygoods, billmanager::BillOnboarding, billreconciliation::Reconciliation, billupdate::BillUpdate, calculatebongapoints::CalculatePoints, cancelinvoice::CancelInvoice, config::{Config, MpesaConfig}, error::{ApiError, MpesaError, map_deserialization_error}, expressquery::ExpressQuery, imsi::IMSI, iotallsims::IotAllSims, iotdeletemessage::IotDeleteMessage, iotdeletethread::IotDeleteThread, iotfiltermessages::IotFilterMessages, iotgetactivationtrends::IotGetActivationTrends, iotgetallmessages::IotGetAllMessages, iotqcustomerinfo::IotQCustomerInfo, iotqlifecycle::IotQLifeCycle, iotrenameasset::IotRenameAsset, iotsearchmessages::IotSearchMessages, iotsendmessage::IotSendMessage, iotsimactivation::IotSimActivation, iotsuspsub::IotSuspSub, mobilevalidation::MobileValidation, pulltransactions::PullTransactions, qr::Qr, queryorginfo::QueryOrgInfo, ratiba::Ratiba, redeembongapoints::RedeemPoints, registerpull::RegisterPull, reversal::Reversal, singleinvoice::SingleInvoice, stkpush::STKPush, swap::Swap, tax::Tax, transactionstatus::TransactionStatus, types::AuthorizationResponse
 };
 
 #[derive(Debug, Clone)]
@@ -52,6 +52,10 @@ impl<C: Config> Client<C> {
 
     pub fn b2bexpress(&self) -> B2bExpress<C> {
         B2bExpress::new(self)
+    }
+
+    pub fn b2bhakikisha(&self) -> B2bHakikisha<C> {
+        B2bHakikisha::new(self)
     }
 
     pub fn b2btopup(&self) -> B2bTopup<C> {
@@ -148,6 +152,10 @@ impl<C: Config> Client<C> {
 
     pub fn iotsuspsub(&self) -> IotSuspSub<C> {
         IotSuspSub::new(self)
+    }
+
+    pub fn mobilevalidation(&self) -> MobileValidation<C> {
+        MobileValidation::new(self)
     }
 
     pub fn pulltransactions(&self) -> PullTransactions<C> {

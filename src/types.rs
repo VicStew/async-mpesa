@@ -768,6 +768,54 @@ pub struct BusinessBuyGoodsResponse {
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "B2bHakikishaRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct B2bHakikishaRequest {
+    pub IdentifierType: String,
+    pub Identifier: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct B2bHakikishaResponse {
+    pub ConversationID: String,
+    pub ResponseCode: String,
+    pub ResponseMessage: String,
+    pub DetailedMessage: String,
+    pub OrganizationShortCode: String,
+    pub OrganizationName: String,
+    pub ChargeProfileID: String
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "MobileValidationRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct MobileValidationRequest {
+    pub requestRefID: String,
+    pub shortCode: String,
+    pub msisdn: String,
+    pub idType: String,
+    pub idNumber: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct MobileValidationResponse {
+    pub requestRefID: String,
+    pub responseCode: String,
+    pub responseMessage: String,
+    pub status: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
 #[builder(name = "BusinessPayBillRequestArgs")]
 #[builder(pattern = "mutable")]
 #[builder(setter(into, strip_option))]
@@ -1006,12 +1054,12 @@ pub struct CancelInvoiceResponse {
 #[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 pub struct BillUpdateRequest {
-    shortcode: String,
-    email: String,
-    officialContact: String,
-    sendReminders: String,
-    logo: String,
-    Callbackurl: String,
+    pub shortcode: String,
+    pub email: String,
+    pub officialContact: String,
+    pub sendReminders: String,
+    pub logo: String,
+    pub Callbackurl: String,
 }
 
 #[allow(non_snake_case)]
