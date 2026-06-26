@@ -38,171 +38,171 @@ impl<C: Config> Client<C> {
     }
 
     // API groups
-    pub fn accountbalance(&self) -> AccountBalance<C> {
+    pub fn accountbalance(&self) -> AccountBalance<'_, C> {
         AccountBalance::new(self)
     }
 
-    pub fn authorization(&self) -> Authorization<C> {
+    pub fn authorization(&self) -> Authorization<'_, C> {
         Authorization::new(self)
     }
 
-    pub fn b2c(&self) -> B2C<C> {
+    pub fn b2c(&self) -> B2C<'_, C> {
         B2C::new(self)
     }
 
-    pub fn b2bexpress(&self) -> B2bExpress<C> {
+    pub fn b2bexpress(&self) -> B2bExpress<'_, C> {
         B2bExpress::new(self)
     }
 
-    pub fn b2bhakikisha(&self) -> B2bHakikisha<C> {
+    pub fn b2bhakikisha(&self) -> B2bHakikisha<'_, C> {
         B2bHakikisha::new(self)
     }
 
-    pub fn b2btopup(&self) -> B2bTopup<C> {
+    pub fn b2btopup(&self) -> B2bTopup<'_, C> {
         B2bTopup::new(self)
     }
 
-    pub fn b2pochi(&self) -> B2Pochi<C> {
+    pub fn b2pochi(&self) -> B2Pochi<'_, C> {
         B2Pochi::new(self)
     }
 
-    pub fn bbuygoods(&self) -> Bbuygoods<C> {
+    pub fn bbuygoods(&self) -> Bbuygoods<'_, C> {
         Bbuygoods::new(self)
     }
 
-    pub fn billreconciliation(&self) -> Reconciliation<C> {
+    pub fn billreconciliation(&self) -> Reconciliation<'_, C> {
         Reconciliation::new(self)
     }
 
-    pub fn billupdate(&self) -> BillUpdate<C> {
+    pub fn billupdate(&self) -> BillUpdate<'_, C> {
         BillUpdate::new(self)
     }
 
-    pub fn billmanager(&self) -> BillOnboarding<C> {
+    pub fn billmanager(&self) -> BillOnboarding<'_, C> {
         BillOnboarding::new(self)
     }
 
-    pub fn bpaybill(&self) -> Bbuygoods<C> {
+    pub fn bpaybill(&self) -> Bbuygoods<'_, C> {
         Bbuygoods::new(self)
     }
 
-    pub fn calculatepoints(&self) -> CalculatePoints<C> {
+    pub fn calculatepoints(&self) -> CalculatePoints<'_, C> {
         CalculatePoints::new(self)
     }
 
-    pub fn cancelinvoice(&self) -> CancelInvoice<C> {
+    pub fn cancelinvoice(&self) -> CancelInvoice<'_, C> {
         CancelInvoice::new(self)
     }
 
-    pub fn expressquery(&self) -> ExpressQuery<C> {
+    pub fn expressquery(&self) -> ExpressQuery<'_, C> {
         ExpressQuery::new(self)
     }
 
-    pub fn imsi(&self) -> IMSI<C> {
+    pub fn imsi(&self) -> IMSI<'_, C> {
         IMSI::new(self)
     }
 
-    pub fn iotallsims(&self) -> IotAllSims<C> {
+    pub fn iotallsims(&self) -> IotAllSims<'_, C> {
         IotAllSims::new(self)
     }
 
-    pub fn iotdeletemessage(&self) -> IotDeleteMessage<C> {
+    pub fn iotdeletemessage(&self) -> IotDeleteMessage<'_, C> {
         IotDeleteMessage::new(self)
     }
 
-    pub fn iotdeletethread(&self) -> IotDeleteThread<C> {
+    pub fn iotdeletethread(&self) -> IotDeleteThread<'_, C> {
         IotDeleteThread::new(self)
     }
 
-    pub fn iotfiltermessages(&self) -> IotFilterMessages<C> {
+    pub fn iotfiltermessages(&self) -> IotFilterMessages<'_, C> {
         IotFilterMessages::new(self)
     }
 
-    pub fn iotgetactivationtrends(&self) -> IotGetActivationTrends<C> {
+    pub fn iotgetactivationtrends(&self) -> IotGetActivationTrends<'_, C> {
         IotGetActivationTrends::new(self)
     }
 
-    pub fn iotgetallmessages(&self) -> IotGetAllMessages<C> {
+    pub fn iotgetallmessages(&self) -> IotGetAllMessages<'_, C> {
         IotGetAllMessages::new(self)
     }
 
-    pub fn iotqcustomerinfo(&self) -> IotQCustomerInfo<C> {
+    pub fn iotqcustomerinfo(&self) -> IotQCustomerInfo<'_, C> {
         IotQCustomerInfo::new(self)
     }
 
-    pub fn iotqlifecycle(&self) -> IotQLifeCycle<C> {
+    pub fn iotqlifecycle(&self) -> IotQLifeCycle<'_, C> {
         IotQLifeCycle::new(self)
     }
 
-    pub fn iotrenameasset(&self) -> IotRenameAsset<C> {
+    pub fn iotrenameasset(&self) -> IotRenameAsset<'_, C> {
         IotRenameAsset::new(self)
     }
 
-    pub fn iotsearchmessages(&self) -> IotSearchMessages<C> {
+    pub fn iotsearchmessages(&self) -> IotSearchMessages<'_, C> {
         IotSearchMessages::new(self)
     }
 
-    pub fn iotsendmessage(&self) -> IotSendMessage<C> {
+    pub fn iotsendmessage(&self) -> IotSendMessage<'_, C> {
         IotSendMessage::new(self)
     }
 
-    pub fn iotsimactivation(&self) -> IotSimActivation<C> {
+    pub fn iotsimactivation(&self) -> IotSimActivation<'_, C> {
         IotSimActivation::new(self)
     }
 
-    pub fn iotsuspsub(&self) -> IotSuspSub<C> {
+    pub fn iotsuspsub(&self) -> IotSuspSub<'_, C> {
         IotSuspSub::new(self)
     }
 
-    pub fn mobilevalidation(&self) -> MobileValidation<C> {
+    pub fn mobilevalidation(&self) -> MobileValidation<'_, C> {
         MobileValidation::new(self)
     }
 
-    pub fn pulltransactions(&self) -> PullTransactions<C> {
+    pub fn pulltransactions(&self) -> PullTransactions<'_, C> {
         PullTransactions::new(self)
     }
 
-    pub fn qr(&self) -> Qr<C> {
+    pub fn qr(&self) -> Qr<'_, C> {
         Qr::new(self)
     }
 
-    pub fn queryorginfo(&self) -> QueryOrgInfo<C> {
+    pub fn queryorginfo(&self) -> QueryOrgInfo<'_, C> {
         QueryOrgInfo::new(self)
     }
 
-    pub fn ratiba(&self) -> Ratiba<C> {
+    pub fn ratiba(&self) -> Ratiba<'_, C> {
         Ratiba::new(self)
     }
 
-    pub fn redeempoints(&self) -> RedeemPoints<C> {
+    pub fn redeempoints(&self) -> RedeemPoints<'_, C> {
         RedeemPoints::new(self)
     }
 
-    pub fn registerpull(&self) -> RegisterPull<C> {
+    pub fn registerpull(&self) -> RegisterPull<'_, C> {
         RegisterPull::new(self)
     }
 
-    pub fn reversal(&self) -> Reversal<C> {
+    pub fn reversal(&self) -> Reversal<'_, C> {
         Reversal::new(self)
     }
 
-    pub fn singleinvoice(&self) -> SingleInvoice<C> {
+    pub fn singleinvoice(&self) -> SingleInvoice<'_, C> {
         SingleInvoice::new(self)
     }
 
-    pub fn stkpush(&self) -> STKPush<C> {
+    pub fn stkpush(&self) -> STKPush<'_, C> {
         STKPush::new(self)
     }
 
-    pub fn swap(&self) -> Swap<C> {
+    pub fn swap(&self) -> Swap<'_, C> {
         Swap::new(self)
     }
 
-    pub fn taxremit(&self) -> Tax<C> {
+    pub fn taxremit(&self) -> Tax<'_, C> {
         Tax::new(self)
     }
 
-    pub fn transactionstatus(&self) -> TransactionStatus<C> {
+    pub fn transactionstatus(&self) -> TransactionStatus<'_, C> {
         TransactionStatus::new(self)
     }
 
