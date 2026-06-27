@@ -639,6 +639,51 @@ pub struct IotDeleteMessageResponse {
     pub header: ResponseHeader,
 }
 
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "C2bRegisterRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct C2bRegisterRequest {
+    pub ShortCode: String,
+    pub ResponseType: String,
+    pub ConfirmationURL: String,
+    pub ValidationURL: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct C2bRegisterResponse {
+    pub OriginatorConversationID: String,
+    pub ResponseCode: String,
+    pub ResponseDescription: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Builder, Serialize, Clone)]
+#[builder(name = "C2bSimulateRequestArgs")]
+#[builder(pattern = "mutable")]
+#[builder(setter(into, strip_option))]
+#[builder(derive(Debug))]
+#[builder(build_fn(error = "MpesaError"))]
+pub struct C2bSimulateRequest {
+    pub ShortCode: String,
+    pub CommandID: String,
+    pub Amount: String,
+    pub Msisdn: String,
+    pub BillRefNumber: String,
+}
+
+#[allow(non_snake_case)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
+pub struct C2bSimulateResponse {
+    pub OriginatorConversationID: String,
+    pub ResponseCode: String,
+    pub ResponseDescription: String,
+}
+
 /// Reverses a C2B M-Pesa Transaction
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
