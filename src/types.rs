@@ -185,11 +185,11 @@ pub struct ExpressQueryRequest {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct ExpressQueryResponse {
-    pub ResponseCode: i16,
+    pub ResponseCode: String,
     pub ResponseDescription: String,
     pub MerchantRequestID: String,
     pub CheckoutRequestID: String,
-    pub ResultCode: i16,
+    pub ResultCode: String,
     pub ResultDesc: String
 }
 
@@ -212,8 +212,7 @@ pub struct QrRequest {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct QrResponse {
-    pub ResponseCode: u32,
-    pub RequestID: String,
+    pub ResponseCode: String,
     pub ResponseDescription: String,
     pub QRCode: String
 }
@@ -483,12 +482,12 @@ pub struct IotSearchMessagesResponse {
     pub header: ResponseHeader,
     pub body: IotMessagesResponseBody,
     pub pageable: IotMessagesPageable,
-    pub totalPages: u32,
-    pub totalElements: u32,
+    pub totalPages: String,
+    pub totalElements: String,
     pub last: bool,
-    pub numberOfElements: u32,
-    pub size: u32,
-    pub number: u32,
+    pub numberOfElements: String,
+    pub size: String,
+    pub number: String,
     pub sort: IotMessagesPageableSort,
     pub first: bool,
     pub empty: bool,
@@ -523,8 +522,8 @@ pub struct IotFilterMessagesResponse {
 #[builder(build_fn(error = "MpesaError"))]
 pub struct IotGetAllMessagesRequest {
     pub vpnGroup: String,
-    pub pageNo: u32,
-    pub pageSize: u32,
+    pub pageNo: String,
+    pub pageSize: String,
 }
 
 #[allow(non_snake_case)]
@@ -539,12 +538,12 @@ pub struct IotGetAllMessagesResponse {
 pub struct IotMessagesResponseBody {
     pub content: Vec<IotMessagesResponseContent>,
     pub pageable: IotMessagesPageable,
-    pub totalPages: u32,
-    pub totalElements: u32,
+    pub totalPages: String,
+    pub totalElements: String,
     pub last: bool,
-    pub numberOfElements: u32,
-    pub size: u32,
-    pub number: u32,
+    pub numberOfElements: String,
+    pub size: String,
+    pub number: String,
     pub sort: IotMessagesPageableSort,
     pub first: bool,
     pub empty: bool,
@@ -553,7 +552,7 @@ pub struct IotMessagesResponseBody {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct IotMessagesResponseContent {
-    pub id: u32,
+    pub id: String,
     pub receiptId: i32,
     pub sourceAddr: String,
     pub msisdn: String,
@@ -570,8 +569,8 @@ pub struct IotMessagesResponseContent {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct IotMessagesPageable {
-    pub pageNumber: u32,
-    pub pageSize: u32,
+    pub pageNumber: String,
+    pub pageSize: String,
     pub sort: IotMessagesPageableSort,
     pub offset: i32,
     pub unpaged: bool,
@@ -985,7 +984,7 @@ pub struct CalculatePointsResponse {
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct ResponseHeader {
     requestRefID: String,
-    responseCode: u32,
+    responseCode: String,
     responseMessage: String,
     customerMessage: String,
     timestamp: String
@@ -1007,9 +1006,9 @@ pub struct CalculatePointsResponseBody {
 #[builder(derive(Debug))]
 pub struct RedeemPointsRequest {
     msisdn: String,
-    amount: u32,
-    bongaPoints: u32,
-    conversionRate: u32,
+    amount: String,
+    bongaPoints: String,
+    conversionRate: String,
     shortCode: String,
     accountNumber: String
 }

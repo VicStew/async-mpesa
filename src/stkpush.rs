@@ -6,6 +6,7 @@ use crate::{
 };
 
 /// Client to call the stkpush API
+/// LIPA NA M-PESA ONLINE API also known as M-PESA express is a Merchant/Business initiated C2B (Customer to Business) transaction. Once the merchant integrates to the API, they can then initiate a payment authorization prompt to a customer whose phone number is registered and active on M-PESA.
 pub struct STKPush<'m, C: Config> {
     client: &'m Client<C>,
 }
