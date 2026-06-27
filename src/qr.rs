@@ -2,7 +2,7 @@ use crate::{
     client::Client,
     config::Config,
     error::MpesaError,
-    types::{QRRequest, QRResponse}
+    types::{QrRequest, QrResponse}
 };
 
 /// Client to call the qr code generator API
@@ -18,8 +18,8 @@ impl <'m, C: Config> Qr<'m, C> {
     /// Creates a request for the provided parameters
     pub async fn create(
         &self,
-        request: QRRequest,
-    ) -> Result<QRResponse, MpesaError> {
+        request: QrRequest,
+    ) -> Result<QrResponse, MpesaError> {
         self.client.post("/mpesa/qrcode/v1/generate", request).await
     }
 }

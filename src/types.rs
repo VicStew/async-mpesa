@@ -18,8 +18,8 @@ pub struct AuthorizationRequest {
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct AuthorizationResponse {
-    pub AccessToken: String,
-    pub ExpiresIn: u16
+    pub access_token: String,
+    pub expires_in: String
 }
 
 #[allow(non_snake_case)]
@@ -195,12 +195,12 @@ pub struct ExpressQueryResponse {
 
 #[allow(non_snake_case)]
 #[derive(Debug, Builder, Serialize, Clone)]
-#[builder(name = "QRRequestArgs")]
+#[builder(name = "QrRequestArgs")]
 #[builder(pattern = "mutable")]
 #[builder(setter(into, strip_option))]
 #[builder(derive(Debug))]
 #[builder(build_fn(error = "MpesaError"))]
-pub struct QRRequest {
+pub struct QrRequest {
     pub MerchantName: String,
     pub RefNo: String,
     pub Amount: String,
@@ -211,7 +211,7 @@ pub struct QRRequest {
 
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
-pub struct QRResponse {
+pub struct QrResponse {
     pub ResponseCode: u32,
     pub RequestID: String,
     pub ResponseDescription: String,
