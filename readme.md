@@ -20,13 +20,13 @@ println!("{}", response.access_token);
 An Example of a Mpesa Express (STK Push) request:
 
 ```rust
-let config = MpesaConfig::new().with_access_token("");
+let app_config = MpesaConfig::new().with_access_token("");
 
 /// Create a client to make requests with default config or you can provide your own check the docs for more info
-let client = Client::with_config(config);
+let app_client = Client::with_config(config);
 
 /// all fields must be provided as strings
-let request = ExpressPushRequestArgs::default()
+let stk_request = ExpressPushRequestArgs::default()
     .PartyA("")
     .PartyB("")
     .Amount("")
@@ -41,14 +41,14 @@ let request = ExpressPushRequestArgs::default()
     .build()
     .unwrap();
 
-let response = client
+let stk_response = client
     ///the appropriate method is required for the respective api you are trying to access.
     .stkpush()
     .create(request)
     .await
     .unwrap();
 
-println!("{:?}", response);
+println!("{:?}", stk_response);
 ```
 
 # Methods to make requests to the mpesa api
