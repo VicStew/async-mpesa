@@ -2,45 +2,25 @@ This is an async rust library for accessing the mpesa apis.
 
 # To get an access token
 ``` rust
-use serde::{Serialize, Deserialize};
-use base64::{Engine as _, engine::general_purpose};
+let access_config = MpesaConfig::new();
+let access_client = Client::with_config(access_config);
 
-#[derive(Debug. Serialize, Deserialize)]
-struct Response {
-    access_token: String,
-    expires_in: String,
-}
+let request = AuthorizationRequestArgs::default()
+    .ConsumerKey("")
+    .ConsumerSecret("")
+    .build()
+    .unwrap();
 
-#[tokio::main]
-async fn main() {
-    let consumer_key = "Your consumer key here".to_string();
-    let consumer_secret = "Your consumer secret".to_string();
-    let client = reqwest::Client::new();
-    let auth = format!("{}:{}", consumer_key, consumer_secret);
-    let auth = general_purpose::URL_SAFE.encode(auth);
-    let body = client.get("mpesa token url here")
-        .header("Authorization", format!("Basic {}", auth))
-        .send()
-        .await
-        .unwrap();
-    
-    let bytes = body
-        .bytes()
-        .await
-        .unwrap();
+let response = access_client.authorization().create(request).await.unwrap();
 
-    let response: Response = serde_json::from_slice(bytes.as_ref())
-        .unwrap();
-
-    println!("{:?}", response);
-}
+println!("{}", response.access_token);
 ```
 
 # Making a request
 An Example of a Mpesa Express (STK Push) request:
 
 ```rust
-let config = MpesaConfig::new().with_access_token();
+let config = MpesaConfig::new().with_access_token("");
 
 /// Create a client to make requests with default config or you can provide your own check the docs for more info
 let client = Client::with_config(config);
@@ -77,67 +57,175 @@ To access different request use the following methods to access the apis mpesa p
 ```rust
 AccountBalanceRequestArgs::Default()
 ```
+2. Authorization
+```rust
+AuthorizationRequestArgs::Default()
+```
 3. B2B Express
 ```rust
 B2bExpressRequestArgs::Default()
 ```
-4. B2C Account Top Up
+4. B2B Hakikisha
 ```rust
-B2cTopUpRequestArgs::Default()
+B2bHakikishaRequestArgs::Default()
 ```
 5. B2C
 ```rust
 B2CRequestArgs::Default()
 ```
-6. Business Buy Goods
+6. B2C Account Top Up
+```rust
+B2cTopUpRequestArgs::Default()
+```
+7. B2Pochi
+```rust
+B2PochiRequestArgs::Default()
+```
+8. Business Buy Goods
 ```rust
 BusinessBuyGoodsRequestArgs::Default()
 ```
-7. Payment and Reconciliation
+9. Payment and Reconciliation
 ```rust
 ReconciliationRequestArgs::Default()
 ```
-8. Bill Manager Onboarding Generic API
+10. Bill Manager Onboarding Generic API
 ```rust
 BillOnboardingRequestArgs::Default()
 ```
-9. Updating Optin Details
+11. Updating Optin Details
 ```rust
 BillUpdateArgs::Default()
 ```
-10. Business PayBill
+12. Business PayBill
 ```rust
 BusinessPayBillRequestArgs::Default()
 ```
-11. Cancel Single Invoicing
+13. C2B Register Url
+```rust
+C2BRegisterRequestArgs::Default()
+```
+14. C2B Simulate
+```rust
+C2BSimulateRequestArgs::Default()
+```
+15. Calculate Bonga Points 
+```rust
+CalculatePointsRequestArgs::Default()
+```
+16. Cancel Single Invoicing
 ```rust
 CancelInvoiceRequestArgs::Default()
 ```
-12. Mpesa Express Query
+17. Mpesa Express Query
 ```rust
 ExpressQueryRequestArgs::Default()
 ```
-13. QR code
+18. IMSI
+```rust
+IMSIRequestArgs::Default()
+```
+19. IoT get all SIMs
+```rust
+IotAllSimsRequestArgs::Default()
+```
+21. IoT Delete Message
+```rust
+IoTDeleteMessageRequestArgs::Default()
+```
+22. IoT Delete Thread
+```rust
+IoTDeleteThreadRequestArgs::Default()
+```
+23. IoT Filter Message
+```rust
+IoTFilterMessageRequestArgs::Default()
+```
+24. IoT Get Activation Trends
+```rust
+IoTGetActivationTrendsRequestArgs::Default()
+```
+25. IoT Get All Messages
+```rust
+IoTGetAllMessagesRequestArgs::Default()
+```
+26. IoT Query Customer Information
+```rust
+IoTQCustomerInfoRequestArgs::Default()
+```
+27. IoT Query Life Cycle
+```rust
+IoTQLifeCycleRequestArgs::Default()
+```
+28. IoT Rename Asset 
+```rust
+IoTRenameAssetRequestArgs::Default()
+```
+29. IoT Search Messages
+```rust
+IoTSearchMessagesRequestArgs::Default()
+```
+30. IoT Send Message
+```rust
+IoTSendMessageRequestArgs::Default()
+```
+31. IoT Sim Activation
+```rust
+IoTSimActivationRequestArgs::Default()
+```
+32. IoT Suspend and Unsuspend Subscriber
+```rust
+IoTSuspSubRequestArgs::Default()
+```
+33. Mobile Validation
+```rust
+MobileValidationRequestArgs::Default()
+```
+34. Pull Transactions
+```rust
+PullTransactionsRequestArgs::Default()
+```
+35. QR code
 ```rust
 QRRequestArgs::Default()
 ```
-14. Mpesa Ratiba
+36. Query Organization Information 
+```rust
+QueryOrgInfoRequestArgs::Default()
+```
+37. Mpesa Ratiba
 ```rust
 RatibaRequestArgs::Default()
 ```
-15. Reverse Transaction
+38. Redeem Bonga Points
+```rust
+RedeemPointsRequestArgs::Default()
+```
+39. Register Pull
+```rust
+RegisterPullRequestArgs::Default()
+```
+40. Reverse Transaction
 ```rust
 ReversalRequestArgs::Default()
 ```
-16. Mpesa Express (STK Push)
+41. Single Invoice
+```rust
+SingleInvoicingRequestArgs::Default()
+```
+42. Mpesa Express (STK Push)
 ```rust
 ExpressPushRequestArgs::Default()
 ```
-17. Transaction Status
+43. Sim Swap
+```rust
+SwapRequestArgs::Default()
+```
+44. Transaction Status
 ```rust
 TransactionStatusRequestArgs::Default()
 ```
-18. Tax Remit
+45. Tax Remit
 ```rust
 TaxRemitRequestArgs::Default()
 ```
